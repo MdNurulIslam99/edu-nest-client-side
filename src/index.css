@@ -6,3 +6,15 @@
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@media (max-width: 768px) {
+  .carousel .slide {
+    width: 50% !important; /* Show 2 logos on small screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel .slide {
+    width: 25% !important; /* Show 4 logos on desktop */
+  }
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "company": "Cisco",
+    "logoUrl": "https://i.ibb.co/hRhWm8GF/cisco.png"
+  },
+  {
+    "id": 2,
+    "company": "Amazon",
+    "logoUrl": "https://i.ibb.co/v4zFHrmb/amazon.png"
+  },
+  {
+    "id": 3,
+    "company": "WordPress",
+    "logoUrl": "https://i.ibb.co/zWxwQXsV/wordpress.jpg"
+  },
+  {
+    "id": 4,
+    "company": "Samsung",
+    "logoUrl": "https://i.ibb.co/n8sj8s5S/samsung.png"
+  },
+  {
+    "id": 5,
+    "company": "Coursera",
+    "logoUrl": "https://i.ibb.co/LXQwgkBp/coudeera.png"
+  },
+  {
+    "id": 6,
+    "company": "Udemy",
+    "logoUrl": "https://i.ibb.co/39F24FZs/udemy.png"
+  },
+  {
+    "id": 7,
+    "company": "MERN",
+    "logoUrl": "https://i.ibb.co/Q7PDBdbR/mern.jpg"
+  },
+  {
+    "id": 8,
+    "company": ".NET",
+    "logoUrl": "https://i.ibb.co/6cKfdJNF/dotnet.jpg"
+  },
+  {
+    "id": 9,
+    "company": "Microsoft",
+    "logoUrl": "https://i.ibb.co/gh9Zm3M/microsoft.png"
+  },
+  {
+    "id": 10,
+    "company": "Programming Hero",
+    "logoUrl": "https://i.ibb.co/wZxWg5Js/ph.jpg"
+  },
+  {
+    "id": 11,
+    "company": "MySQL",
+    "logoUrl": "https://i.ibb.co/4Zy62mCw/mysql.png"
+  },
+  {
+    "id": 12,
+    "company": "Google",
+    "logoUrl": "https://logo.clearbit.com/google.com"
+  },
+  {
+    "id": 13,
+    "company": "AWS",
+    "logoUrl": "https://logo.clearbit.com/amazonaws.com"
+  },
+  {
+    "id": 14,
+    "company": "Cloud",
+    "logoUrl": "https://i.ibb.co/CKvqrM0r/cloud.png"
+  }
+]
