@@ -11,6 +11,12 @@ import BrandingSection from "../pages/shared/Footer/FooterPages/BrandingSection"
 import Design from "../pages/shared/Footer/FooterPages/Design";
 import MarketingSection from "../pages/shared/Footer/FooterPages/MarketingSection";
 import AdvertisementSection from "../pages/shared/Footer/FooterPages/AdvertisementSection";
+import DashBoardLayout from "../Layouts/DashBoardLayout";
+import PrivateRoute from "../routes/PrivateRoute";
+import AddClass from "../pages/DashBoard/Teacher/AddClass";
+import TeacherRequestForm from "../pages/TeacherRequestForm/TeacherRequestForm";
+import AllClasses from "../pages/AllClasses/AllClasses";
+import TeacherRequest from "../pages/DashBoard/TeacherRequest/TeacherRequest";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +26,18 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
+      },
+      {
+        path: "/teacherRequestForm",
+        element: (
+          <PrivateRoute>
+            <TeacherRequestForm></TeacherRequestForm>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/allClasses",
+        element: <AllClasses></AllClasses>,
       },
       {
         path: "/termsCondition",
@@ -60,6 +78,25 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp></SignUp>,
+      },
+    ],
+  },
+  {
+    path: "/dashBoard",
+    element: (
+      <PrivateRoute>
+        <DashBoardLayout></DashBoardLayout>,
+      </PrivateRoute>
+    ),
+
+    children: [
+      {
+        path: "addClass",
+        element: <AddClass></AddClass>,
+      },
+      {
+        path: "teacherRequest",
+        element: <TeacherRequest></TeacherRequest>,
       },
     ],
   },

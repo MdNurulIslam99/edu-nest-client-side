@@ -32,7 +32,7 @@ const NavBar = () => {
           to="/"
           className={({ isActive }) =>
             isActive
-              ? "text-indigo-900 text-lg font-bold"
+              ? "text-neutral-950 text-lg font-bold"
               : "text-white  text-lg font-bold"
           }
         >
@@ -41,10 +41,10 @@ const NavBar = () => {
       </li>
       <li>
         <NavLink
-          to="/roomPage"
+          to="/allClasses"
           className={({ isActive }) =>
             isActive
-              ? "text-indigo-900  text-lg font-bold"
+              ? "text-neutral-950  text-lg font-bold"
               : "text-white text-lg font-bold"
           }
         >
@@ -53,10 +53,10 @@ const NavBar = () => {
       </li>
       <li>
         <NavLink
-          to="/allRoom"
+          to="/teacherRequestForm"
           className={({ isActive }) =>
             isActive
-              ? "text-indigo-900 text-lg font-bold"
+              ? "text-neutral-950 text-lg font-bold"
               : "text-white text-lg font-bold"
           }
         >
@@ -141,7 +141,7 @@ const NavBar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/dashboard"
+                    to="/dashBoard"
                     className="hover:bg-gray-200 btn text-center font-semibold"
                   >
                     Dashboard
