@@ -23,7 +23,7 @@ const SignUp = () => {
   }, []);
 
   const onSubmit = (data) => {
-    const { name, email, password, photoUrl } = data;
+    const { name, email, password, photoUrl, phone } = data;
 
     if (password.length < 6) {
       return Swal.fire(
@@ -60,6 +60,7 @@ const SignUp = () => {
               ...user,
               displayName: name,
               photoURL: photoUrl,
+              phoneNumber: phone, // ✅✅ CHANGE: stored locally if needed
             });
             reset();
             Swal.fire("Success", "User signed up successfully!", "success");
@@ -129,6 +130,29 @@ const SignUp = () => {
             />
             {errors.email && (
               <p className="text-red-400 text-sm">{errors.email.message}</p>
+            )}
+          </div>
+
+          {/*  Phone Number */}
+          <div className="space-y-2">
+            <label htmlFor="phone" className="block text-base font-semibold">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              placeholder="+8801XXXXXXXXX"
+              className="w-full px-3 py-2 border rounded-md text-white"
+              {...register("phone", {
+                required: "Phone is required",
+                pattern: {
+                  value: /^(\+8801|8801|01)[0-9]{9}$/,
+                  message: "Enter a valid BD phone number",
+                },
+              })}
+            />
+            {errors.phone && (
+              <p className="text-red-400 text-sm">{errors.phone.message}</p>
             )}
           </div>
 

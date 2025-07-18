@@ -17,6 +17,8 @@ import AddClass from "../pages/DashBoard/Teacher/AddClass";
 import TeacherRequestForm from "../pages/TeacherRequestForm/TeacherRequestForm";
 import AllClasses from "../pages/AllClasses/AllClasses";
 import TeacherRequest from "../pages/DashBoard/TeacherRequest/TeacherRequest";
+import TeacherMyClass from "../pages/DashBoard/TeacherMyClass/TeacherMyClass";
+import AdminAllClasses from "../pages/DashBoard/AdminAllClasses/AdminAllClasses";
 
 const router = createBrowserRouter([
   {
@@ -95,8 +97,16 @@ const router = createBrowserRouter([
         element: <AddClass></AddClass>,
       },
       {
+        path: "adminAllClasses",
+        element: <AdminAllClasses></AdminAllClasses>,
+      },
+      {
         path: "teacherRequest",
         element: <TeacherRequest></TeacherRequest>,
+      },
+      {
+        path: "teacherMyClass",
+        element: <TeacherMyClass></TeacherMyClass>,
       },
     ],
   },

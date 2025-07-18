@@ -10,7 +10,7 @@ const RootLayouts = () => {
         <Navbar></Navbar>
       </div>
       <div>
-        <div className=" min-h-[calc(100vh-385px)]">
+        <div className=" min-h-[calc(100vh-320px)]">
           <Outlet></Outlet>
         </div>
       </div>
