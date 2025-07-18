@@ -83,6 +83,14 @@ const DashBoardLayout = () => {
               <FaChalkboardTeacher className="mr-2" /> Admin All Classes
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/dashboard/allUsersTable"
+              className="flex items-center"
+            >
+              <FaChalkboardTeacher className="mr-2" /> All Users Table
+            </NavLink>
+          </li>
         </ul>
       </div>
     </div>

@@ -4,12 +4,14 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
+import useAxios from "../../../hooks/useAxios";
 
 const SignUp = () => {
   const { createUser, updatedUser, signInWithGoogle, setUser } =
     useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const axiosInstance = useAxios();
 
   const {
     register,
@@ -25,24 +27,14 @@ const SignUp = () => {
   const onSubmit = (data) => {
     const { name, email, password, photoUrl, phone } = data;
 
-    if (password.length < 6) {
+    if (
+      password.length < 6 ||
+      !/[a-z]/.test(password) ||
+      !/[A-Z]/.test(password)
+    ) {
       return Swal.fire(
         "Error",
-        "Password must be at least 6 characters",
-        "error"
-      );
-    }
-    if (!/[a-z]/.test(password)) {
-      return Swal.fire(
-        "Error",
-        "Password must contain a lowercase letter",
-        "error"
-      );
-    }
-    if (!/[A-Z]/.test(password)) {
-      return Swal.fire(
-        "Error",
-        "Password must contain an uppercase letter",
+        "Password must be at least 6 chars, include a lowercase and an uppercase letter",
         "error"
       );
     }
@@ -51,25 +43,35 @@ const SignUp = () => {
       .then((result) => {
         const user = result.user;
 
-        updatedUser({
-          displayName: name,
-          photoURL: photoUrl,
-        })
-          .then(() => {
-            setUser({
-              ...user,
-              displayName: name,
-              photoURL: photoUrl,
-              phoneNumber: phone, // ✅✅ CHANGE: stored locally if needed
-            });
-            reset();
-            Swal.fire("Success", "User signed up successfully!", "success");
-            navigate("/");
-          })
-          .catch(() => {
-            Swal.fire("Error", "User profile update failed", "error");
-            setUser(user);
+        updatedUser({ displayName: name, photoURL: photoUrl }).then(() => {
+          setUser({
+            ...user,
+            displayName: name,
+            photoURL: photoUrl,
+            phoneNumber: phone,
           });
+
+          const newUser = {
+            name,
+            email,
+            photoUrl,
+            phone,
+            role: "student", // or "teacher", based on signup logic
+            createdAt: new Date().toISOString(),
+            lastLogin: new Date().toISOString(),
+          };
+
+          axiosInstance
+            .post("/users", newUser)
+            .then(() => {
+              reset();
+              Swal.fire("Success", "User signed up successfully!", "success");
+              navigate("/");
+            })
+            .catch(() => {
+              Swal.fire("Error", "Failed to save user to DB", "error");
+            });
+        });
       })
       .catch(() => {
         Swal.fire(
@@ -82,9 +84,31 @@ const SignUp = () => {
 
   const handleGoogleSignUp = () => {
     signInWithGoogle()
-      .then(() => {
-        Swal.fire("Success", "Signed up with Google successfully", "success");
-        navigate("/");
+      .then((result) => {
+        const user = result.user;
+        const userInfo = {
+          name: user.displayName,
+          email: user.email,
+          photoUrl: user.photoURL,
+          phone: user.phoneNumber || "",
+          role: "student",
+          createdAt: new Date().toISOString(),
+          lastLogin: new Date().toISOString(),
+        };
+
+        axiosInstance
+          .post("/users", userInfo)
+          .then(() => {
+            Swal.fire(
+              "Success",
+              "Signed up with Google successfully",
+              "success"
+            );
+            navigate("/");
+          })
+          .catch(() => {
+            Swal.fire("Error", "Failed to save Google user", "error");
+          });
       })
       .catch(() => {
         Swal.fire("Error", "Google Sign Up failed", "error");
