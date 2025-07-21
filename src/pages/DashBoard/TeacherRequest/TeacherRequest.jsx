@@ -11,57 +11,39 @@ const TeacherRequest = () => {
     setLoading(true);
     axiosSecure
       .get("/teacherRequests")
-      .then((res) => {
-        setRequests(res.data || []);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch teacher requests:", err);
-        Swal.fire("Error", "Failed to load teacher requests", "error");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      .then((res) => setRequests(res.data || []))
+      .catch(() =>
+        Swal.fire("Error", "Failed to load teacher requests", "error")
+      )
+      .finally(() => setLoading(false));
   }, [axiosSecure]);
 
-  const handleApprove = (id) => {
-    axiosSecure
-      .patch(`/teacherRequests/${id}`, { status: "accepted" })
-      .then((res) => {
-        if (res.data.modifiedCount > 0) {
-          Swal.fire("Success", "Request approved!", "success");
-          setRequests((prev) =>
-            prev.map((req) =>
-              req._id === id ? { ...req, status: "accepted" } : req
-            )
-          );
-        }
-      })
-      .catch(() => {
-        Swal.fire("Error", "Failed to approve request.", "error");
-      });
-  };
+  const handleUpdate = async (id, status) => {
+    const confirm = await Swal.fire({
+      title: `Are you sure you want to ${status} this request?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+    });
 
-  const handleReject = (id) => {
+    if (!confirm.isConfirmed) return;
+
     axiosSecure
-      .patch(`/teacherRequests/${id}`, { status: "rejected" })
+      .patch(`/teacherRequests/${id}`, { status })
       .then((res) => {
         if (res.data.modifiedCount > 0) {
-          Swal.fire("Success", "Request rejected!", "success");
+          Swal.fire("Success", `Request ${status}ed`, "success");
           setRequests((prev) =>
-            prev.map((req) =>
-              req._id === id ? { ...req, status: "rejected" } : req
-            )
+            prev.map((req) => (req._id === id ? { ...req, status } : req))
           );
         }
       })
-      .catch(() => {
-        Swal.fire("Error", "Failed to reject request.", "error");
-      });
+      .catch(() => Swal.fire("Error", `Failed to ${status} request`, "error"));
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-6 bg-gray-200 rounded-lg shadow-2xl mt-28 mb-16">
-      <h2 className="text-3xl font-bold text-indigo-700 mb-2 text-center">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 bg-base-200 rounded-xl mt-16">
+      <h2 className="text-3xl font-bold text-indigo-700 text-center mb-4">
         Teacher Requests
       </h2>
       <p className="text-center text-gray-600 mb-6">
@@ -69,18 +51,15 @@ const TeacherRequest = () => {
       </p>
 
       {loading ? (
-        <p className="text-center text-indigo-600 font-semibold mb-4">
-          Loading...
-        </p>
+        <p className="text-center text-indigo-600 font-semibold">Loading...</p>
       ) : requests.length === 0 ? (
-        <p className="text-center text-gray-500 mt-4">
+        <p className="text-center text-gray-500 py-10">
           No teacher requests found.
         </p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table table-zebra table-bordered w-full text-center">
-            {/* Table Head */}
-            <thead className="bg-indigo-200 text-indigo-800 font-semibold">
+          <table className="table table-zebra w-full">
+            <thead className="bg-indigo-100 text-indigo-800 font-semibold text-center">
               <tr>
                 <th>#</th>
                 <th>Profile</th>
@@ -91,13 +70,12 @@ const TeacherRequest = () => {
                 <th>Actions</th>
               </tr>
             </thead>
-            {/* Table Body */}
             <tbody>
               {requests.map((req, index) => {
                 const disabled =
                   req.status === "rejected" || req.status === "accepted";
                 return (
-                  <tr key={req._id}>
+                  <tr key={req._id} className="text-center">
                     <td>{index + 1}</td>
                     <td>
                       <div className="flex items-center justify-center gap-3">
@@ -105,7 +83,9 @@ const TeacherRequest = () => {
                           <div className="mask mask-squircle w-12 h-12">
                             <img
                               src={
-                                req.image || "https://via.placeholder.com/150"
+                                req.image ||
+                                req.photoUrl ||
+                                "https://via.placeholder.com/150"
                               }
                               alt={req.name}
                             />
@@ -113,7 +93,7 @@ const TeacherRequest = () => {
                         </div>
                         <div className="text-left">
                           <div className="font-bold">{req.name}</div>
-                          <div className="text-sm opacity-50">{req.email}</div>
+                          <div className="text-sm opacity-60">{req.email}</div>
                         </div>
                       </div>
                     </td>
@@ -136,16 +116,16 @@ const TeacherRequest = () => {
                     <td>
                       <div className="flex justify-center gap-2">
                         <button
-                          className="btn btn-success btn-xs"
+                          className="btn btn-success btn-xs text-white"
                           disabled={disabled}
-                          onClick={() => handleApprove(req._id)}
+                          onClick={() => handleUpdate(req._id, "accepted")}
                         >
                           Approve
                         </button>
                         <button
-                          className="btn btn-error btn-xs"
+                          className="btn btn-error btn-xs text-white"
                           disabled={disabled}
-                          onClick={() => handleReject(req._id)}
+                          onClick={() => handleUpdate(req._id, "rejected")}
                         >
                           Reject
                         </button>

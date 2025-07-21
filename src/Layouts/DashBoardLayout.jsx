@@ -1,5 +1,13 @@
 import React from "react";
-import { FaChalkboardTeacher, FaHome, FaPlusCircle } from "react-icons/fa";
+import {
+  FaHome,
+  FaPlusCircle,
+  FaChalkboardTeacher,
+  FaClipboardList,
+  FaUserGraduate,
+  FaUsersCog,
+  FaUserCircle,
+} from "react-icons/fa";
 import { Outlet } from "react-router";
 
 import { NavLink } from "react-router";
@@ -64,31 +72,40 @@ const DashBoardLayout = () => {
               to="/dashboard/teacherRequest"
               className="flex items-center"
             >
-              <FaChalkboardTeacher className="mr-2" /> Teacher Request
+              <FaClipboardList className="mr-2" /> Teacher Request
             </NavLink>
           </li>
+
           <li>
             <NavLink
               to="/dashboard/teacherMyClass"
               className="flex items-center"
             >
-              <FaChalkboardTeacher className="mr-2" /> Teacher MyClass
+              <FaChalkboardTeacher className="mr-2" /> My Classes
             </NavLink>
           </li>
+
           <li>
             <NavLink
               to="/dashboard/adminAllClasses"
               className="flex items-center"
             >
-              <FaChalkboardTeacher className="mr-2" /> Admin All Classes
+              <FaUserGraduate className="mr-2" /> All Classes
             </NavLink>
           </li>
+
           <li>
             <NavLink
               to="/dashboard/allUsersTable"
               className="flex items-center"
             >
-              <FaChalkboardTeacher className="mr-2" /> All Users Table
+              <FaUsersCog className="mr-2" /> All Users
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/dashboard/myProfile" className="flex items-center">
+              <FaUserCircle className="mr-2" /> My Profile
             </NavLink>
           </li>
         </ul>

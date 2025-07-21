@@ -20,6 +20,7 @@ import TeacherRequest from "../pages/DashBoard/TeacherRequest/TeacherRequest";
 import TeacherMyClass from "../pages/DashBoard/TeacherMyClass/TeacherMyClass";
 import AdminAllClasses from "../pages/DashBoard/AdminAllClasses/AdminAllClasses";
 import AllUsersTable from "../pages/DashBoard/AllUsersTable/AllUsersTable";
+import MyProfile from "../pages/DashBoard/MyProfile/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
       {
         path: "allUsersTable",
         element: <AllUsersTable></AllUsersTable>,
+      },
+      {
+        path: "myProfile",
+        element: <MyProfile></MyProfile>,
       },
       {
         path: "teacherRequest",

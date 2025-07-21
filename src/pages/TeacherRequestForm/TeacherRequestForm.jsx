@@ -5,41 +5,34 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
 
 const TeacherRequestForm = () => {
-  const axiosSecure = useAxiosSecure(); //  CHANGE: removed array destructuring
+  const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
 
   const {
     register,
     handleSubmit,
-    watch,
+    // watch,
     reset,
     formState: { errors },
   } = useForm();
 
-  const experienceLevel = watch("experience");
-  const selectedCategory = watch("category");
-
-  //  CHANGE: State for teacher status and request info
   const [requestStatus, setRequestStatus] = useState(null);
   const [requestId, setRequestId] = useState(null);
 
-  //  CHANGE: Fetch existing request on component mount
+  //  Load request data from backend if it exists
   useEffect(() => {
     if (user?.email) {
-      axiosSecure
-        .get(`/teacherRequests?email=${user.email}`)
-        .then((res) => {
-          const existing = res.data?.[0];
-          if (existing) {
-            setRequestStatus(existing.status);
-            setRequestId(existing._id);
-          }
-        })
-        .catch((err) => console.error("Fetch error:", err));
+      axiosSecure.get(`/teacherRequests?email=${user.email}`).then((res) => {
+        const existing = res.data?.[0];
+        if (existing) {
+          setRequestStatus(existing.status);
+          setRequestId(existing._id);
+        }
+      });
     }
   }, [axiosSecure, user?.email]);
 
-  //  CHANGE: Submit or resubmit request
+  //  Submit or resubmit form based on status
   const onSubmit = (data) => {
     const requestData = {
       ...data,
@@ -47,11 +40,11 @@ const TeacherRequestForm = () => {
       image: user?.photoURL,
       email: user?.email,
       name: user?.displayName,
-      requestDate: new Date().toISOString(),
+      requestDate: new Date().toISOString(), //  Store submission datetime
     };
 
     if (requestStatus === "rejected" && requestId) {
-      //  CHANGE: Update existing rejected request
+      //  Update rejected request
       axiosSecure
         .put(`/teacherRequests/${requestId}`, requestData)
         .then((res) => {
@@ -63,51 +56,45 @@ const TeacherRequestForm = () => {
             );
             setRequestStatus("pending");
           }
-        })
-        .catch(() => Swal.fire("Error", "Failed to resubmit!", "error"));
+        });
     } else {
-      //  CHANGE: New request
-      axiosSecure
-        .post("/teacherRequests", requestData)
-        .then((res) => {
-          if (res.data.insertedId) {
-            Swal.fire("Success", "Your request has been submitted!", "success");
-            setRequestStatus("pending");
-            reset();
-          }
-        })
-        .catch(() => Swal.fire("Error", "Failed to submit request!", "error"));
+      //  Submit new request
+      axiosSecure.post("/teacherRequests", requestData).then((res) => {
+        if (res.data.insertedId) {
+          Swal.fire("Success", "Your request has been submitted!", "success");
+          setRequestStatus("pending");
+          reset();
+        }
+      });
     }
   };
 
-  //  CHANGE: Conditional UI
+  //  Approved users message only
   if (requestStatus === "approved") {
     return (
-      <div className="text-center text-green-600 font-semibold mt-10">
-        🎉 You are already approved as a teacher!
+      <div className="text-center mt-24 p-10 bg-green-100 rounded-xl text-green-800 text-xl font-semibold shadow-xl">
+        🎉 You are already an approved teacher on EduNest!
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-xl shadow-2xl mt-28 mb-16">
-      {/*  Title and Short Description */}
+    <div className="max-w-4xl mx-auto mt-28 p-6 rounded-2xl bg-white shadow-xl mb-20">
+      {/*  Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-indigo-700 mb-2">
+        <h1 className="text-4xl font-bold text-indigo-700 mb-2">
           Become an Instructor
         </h1>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          Interested in sharing your knowledge? Submit your application to
-          become an instructor on EduNest. Fill in the details below and wait
-          for admin approval.
+        <p className="text-gray-600">
+          Share your expertise and teach students across the world on EduNest!
         </p>
       </div>
 
-      {/*  CHANGE: Show form only if no request or rejected */}
+      {/*  Form: Show only if no request or rejected */}
       {requestStatus !== "pending" && (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          className="grid md:grid-cols-2 gap-6"
         >
           {/* Name */}
           <div>
@@ -133,20 +120,20 @@ const TeacherRequestForm = () => {
             />
           </div>
 
-          {/* Experience */}
+          {/*  Experience */}
           <div>
             <label className="label">Experience</label>
             <select
               {...register("experience", { required: true })}
               className="select select-bordered w-full"
             >
-              <option value="">Select experience</option>
+              <option value="">Select Experience</option>
               <option value="beginner">Beginner</option>
               <option value="mid-level">Mid-level</option>
               <option value="experienced">Experienced</option>
             </select>
             {errors.experience && (
-              <p className="text-red-500 text-sm">Experience is required</p>
+              <p className="text-red-500 text-sm">This field is required</p>
             )}
           </div>
 
@@ -155,7 +142,7 @@ const TeacherRequestForm = () => {
             <label className="label">Title</label>
             <input
               type="text"
-              placeholder="e.g. Senior Web Developer"
+              placeholder="Ex: UI/UX Designer, MERN Stack Dev"
               className="input input-bordered w-full"
               {...register("title", { required: true })}
             />
@@ -164,14 +151,14 @@ const TeacherRequestForm = () => {
             )}
           </div>
 
-          {/* Category */}
+          {/*  Category */}
           <div className="md:col-span-2">
             <label className="label">Category</label>
             <select
               {...register("category", { required: true })}
               className="select select-bordered w-full"
             >
-              <option value="">Select category</option>
+              <option value="">Choose a category</option>
               <option value="Web Development">Web Development</option>
               <option value="Digital Marketing">Digital Marketing</option>
               <option value="Graphic Design">Graphic Design</option>
@@ -183,10 +170,10 @@ const TeacherRequestForm = () => {
             )}
           </div>
 
-          {/* Submit Button */}
+          {/* Submit */}
           <div className="md:col-span-2">
             <button
-              className="btn bg-indigo-600 hover:bg-indigo-700 text-white w-full"
+              className="btn bg-indigo-600 text-white hover:bg-indigo-700 w-full"
               type="submit"
             >
               {requestStatus === "rejected"
@@ -197,18 +184,12 @@ const TeacherRequestForm = () => {
         </form>
       )}
 
-      {/*  CHANGE: If pending, show message */}
+      {/*  Pending status message */}
       {requestStatus === "pending" && (
-        <div className="text-yellow-600 font-semibold text-center mt-6">
-          ⏳ Your request is under review by admin.
+        <div className="mt-6 text-center text-yellow-600 font-semibold">
+          ⏳ Your request is under admin review.
         </div>
       )}
-
-      {/* Debug watch values */}
-      <div className="mt-8 bg-gray-100 p-4 rounded text-sm text-gray-600">
-        <p>Selected Experience: {experienceLevel}</p>
-        <p>Selected Category: {selectedCategory}</p>
-      </div>
     </div>
   );
 };
