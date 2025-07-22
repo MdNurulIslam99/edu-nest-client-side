@@ -1,29 +1,30 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query"; // Added TanStack Query
 
 const TeacherMyClass = () => {
-  const [classes, setClasses] = useState([]);
   const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
 
-  // ✅ Fetch only the logged-in user's classes
-  useEffect(() => {
-    if (user?.email) {
-      axiosSecure
-        .get(`/classesByEmail?email=${user.email}`)
-        .then((res) => setClasses(res.data))
-        .catch((err) => {
-          console.error("❌ Failed to fetch classes:", err);
-          Swal.fire("Error", "Failed to load your classes", "error");
-        });
-    }
-  }, [axiosSecure, user?.email]);
+  // Replaced useEffect + useState with TanStack useQuery
+  const {
+    data: classes = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["myClasses", user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/classesByEmail?email=${user.email}`);
+      return res.data;
+    },
+    enabled: !!user?.email, // only fetch when email is available
+  });
 
-  // ✅ Handle delete
+  // Handle delete (no changes here)
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -35,13 +36,21 @@ const TeacherMyClass = () => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/classes/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
-            setClasses((prev) => prev.filter((cls) => cls._id !== id));
+            refetch(); // Refetch after deletion
             Swal.fire("Deleted!", "Your class has been removed.", "success");
           }
         });
       }
     });
   };
+
+  if (isLoading) {
+    return (
+      <div className="text-center py-20 text-gray-500">
+        Loading your classes...
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto mt-10 mb-10 px-4 py-8">

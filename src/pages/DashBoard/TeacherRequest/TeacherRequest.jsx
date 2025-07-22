@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query"; // Added for TanStack Query
 
 const TeacherRequest = () => {
   const axiosSecure = useAxiosSecure();
-  const [requests, setRequests] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    axiosSecure
-      .get("/teacherRequests")
-      .then((res) => setRequests(res.data || []))
-      .catch(() =>
-        Swal.fire("Error", "Failed to load teacher requests", "error")
-      )
-      .finally(() => setLoading(false));
-  }, [axiosSecure]);
+  // Changed: Replaced useEffect with useQuery for GET request
+  const {
+    data: requests = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["teacherRequests"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/teacherRequests");
+      return res.data;
+    },
+  });
 
   const handleUpdate = async (id, status) => {
     const confirm = await Swal.fire({
@@ -33,9 +34,7 @@ const TeacherRequest = () => {
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           Swal.fire("Success", `Request ${status}ed`, "success");
-          setRequests((prev) =>
-            prev.map((req) => (req._id === id ? { ...req, status } : req))
-          );
+          refetch(); // Changed: Refetch data after successful PATCH
         }
       })
       .catch(() => Swal.fire("Error", `Failed to ${status} request`, "error"));
@@ -50,7 +49,7 @@ const TeacherRequest = () => {
         Review and manage all teacher applications submitted by users.
       </p>
 
-      {loading ? (
+      {isLoading ? (
         <p className="text-center text-indigo-600 font-semibold">Loading...</p>
       ) : requests.length === 0 ? (
         <p className="text-center text-gray-500 py-10">

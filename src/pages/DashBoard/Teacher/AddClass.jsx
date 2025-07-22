@@ -1,21 +1,47 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-// import { useNavigate } from "react-router";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useMutation } from "@tanstack/react-query";
 
 const AddClass = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
-  // const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
-    // watch,
     formState: { errors },
+    reset,
   } = useForm();
+
+  //  POST: Mutation using TanStack Query
+  const { mutate: addClassMutation, isLoading: isSubmitting } = useMutation({
+    mutationFn: async (newClass) => {
+      const res = await axiosSecure.post("/classes", newClass);
+      return res.data;
+    },
+    onSuccess: (data) => {
+      if (data.insertedId) {
+        Swal.fire({
+          icon: "success",
+          title: "Class added successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        reset();
+      }
+    },
+    onError: (error) => {
+      console.error("Error adding class:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong while adding class!",
+      });
+    },
+  });
 
   const onSubmit = (data) => {
     const newClass = {
@@ -26,33 +52,11 @@ const AddClass = () => {
       instructorName: user?.displayName,
       instructorEmail: user?.email,
     };
-
-    axiosSecure
-      .post("/classes", newClass)
-      .then((res) => {
-        if (res.data.insertedId) {
-          Swal.fire({
-            icon: "success",
-            title: "Class added successfully!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          //   navigate("/dashboard/my-classes");
-        }
-      })
-      .catch((error) => {
-        console.error("Error adding class:", error);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong while adding class!",
-        });
-      });
+    addClassMutation(newClass);
   };
 
   return (
     <div className="max-w-5xl mx-auto p-6 bg-white rounded-lg shadow-md mt-6">
-      {/*  Title & Description */}
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-violet-600">
           Create a New Course
@@ -61,8 +65,9 @@ const AddClass = () => {
           Fill in the details below to launch your new course.
         </p>
       </div>
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Course Information */}
+        {/* Course Info */}
         <div>
           <h3 className="text-xl font-semibold mb-2">Course Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -175,7 +180,7 @@ const AddClass = () => {
               <input
                 type="number"
                 step="0.01"
-                {...register("discount", { required: false })}
+                {...register("discount")}
                 className="w-full px-4 py-2 border rounded"
               />
             </div>
@@ -240,9 +245,10 @@ const AddClass = () => {
         <div className="text-center">
           <button
             type="submit"
-            className="px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700"
+            disabled={isSubmitting}
+            className="px-6 py-3 bg-violet-600 text-white rounded hover:bg-violet-700 disabled:opacity-50"
           >
-            Add Class
+            {isSubmitting ? "Submitting..." : "Add Class"}
           </button>
         </div>
       </form>

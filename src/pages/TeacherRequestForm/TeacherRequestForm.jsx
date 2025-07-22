@@ -1,75 +1,77 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
+import { useQuery, useQueryClient } from "@tanstack/react-query"; //  updated
 
 const TeacherRequestForm = () => {
   const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient(); //  updated
   const { user } = useContext(AuthContext);
 
   const {
     register,
     handleSubmit,
-    // watch,
     reset,
     formState: { errors },
   } = useForm();
 
-  const [requestStatus, setRequestStatus] = useState(null);
   const [requestId, setRequestId] = useState(null);
 
-  //  Load request data from backend if it exists
-  useEffect(() => {
-    if (user?.email) {
-      axiosSecure.get(`/teacherRequests?email=${user.email}`).then((res) => {
-        const existing = res.data?.[0];
-        if (existing) {
-          setRequestStatus(existing.status);
-          setRequestId(existing._id);
-        }
-      });
-    }
-  }, [axiosSecure, user?.email]);
+  //  useQuery to fetch teacher request by user email
+  const { data: requestData, isLoading } = useQuery({
+    queryKey: ["teacherRequest", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/teacherRequests?email=${user.email}`);
+      const existing = res.data?.[0];
+      if (existing) {
+        setRequestId(existing._id);
+      }
+      return existing || null;
+    },
+  });
 
-  //  Submit or resubmit form based on status
-  const onSubmit = (data) => {
+  const requestStatus = requestData?.status;
+
+  const onSubmit = async (data) => {
     const requestData = {
       ...data,
       status: "pending",
       image: user?.photoURL,
       email: user?.email,
       name: user?.displayName,
-      requestDate: new Date().toISOString(), //  Store submission datetime
+      requestDate: new Date().toISOString(),
     };
 
-    if (requestStatus === "rejected" && requestId) {
-      //  Update rejected request
-      axiosSecure
-        .put(`/teacherRequests/${requestId}`, requestData)
-        .then((res) => {
-          if (res.data.modifiedCount > 0) {
-            Swal.fire(
-              "Success",
-              "Your request has been resubmitted!",
-              "success"
-            );
-            setRequestStatus("pending");
-          }
-        });
-    } else {
-      //  Submit new request
-      axiosSecure.post("/teacherRequests", requestData).then((res) => {
+    try {
+      if (requestStatus === "rejected" && requestId) {
+        const res = await axiosSecure.put(
+          `/teacherRequests/${requestId}`,
+          requestData
+        );
+        if (res.data.modifiedCount > 0) {
+          Swal.fire("Success", "Your request has been resubmitted!", "success");
+          queryClient.invalidateQueries(["teacherRequest", user?.email]); //  update cache
+        }
+      } else {
+        const res = await axiosSecure.post("/teacherRequests", requestData);
         if (res.data.insertedId) {
           Swal.fire("Success", "Your request has been submitted!", "success");
-          setRequestStatus("pending");
           reset();
+          queryClient.invalidateQueries(["teacherRequest", user?.email]); //  update cache
         }
-      });
+      }
+    } catch (error) {
+      console.error("Submission failed", error);
     }
   };
 
-  //  Approved users message only
+  if (isLoading) {
+    return <div className="text-center mt-20">Loading...</div>; //  loading state
+  }
+
   if (requestStatus === "approved") {
     return (
       <div className="text-center mt-24 p-10 bg-green-100 rounded-xl text-green-800 text-xl font-semibold shadow-xl">
@@ -80,7 +82,6 @@ const TeacherRequestForm = () => {
 
   return (
     <div className="max-w-4xl mx-auto mt-28 p-6 rounded-2xl bg-white shadow-xl mb-20">
-      {/*  Header */}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-indigo-700 mb-2">
           Become an Instructor
@@ -90,7 +91,6 @@ const TeacherRequestForm = () => {
         </p>
       </div>
 
-      {/*  Form: Show only if no request or rejected */}
       {requestStatus !== "pending" && (
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -120,7 +120,7 @@ const TeacherRequestForm = () => {
             />
           </div>
 
-          {/*  Experience */}
+          {/* Experience */}
           <div>
             <label className="label">Experience</label>
             <select
@@ -151,7 +151,7 @@ const TeacherRequestForm = () => {
             )}
           </div>
 
-          {/*  Category */}
+          {/* Category */}
           <div className="md:col-span-2">
             <label className="label">Category</label>
             <select
@@ -170,7 +170,6 @@ const TeacherRequestForm = () => {
             )}
           </div>
 
-          {/* Submit */}
           <div className="md:col-span-2">
             <button
               className="btn bg-indigo-600 text-white hover:bg-indigo-700 w-full"
@@ -184,7 +183,6 @@ const TeacherRequestForm = () => {
         </form>
       )}
 
-      {/*  Pending status message */}
       {requestStatus === "pending" && (
         <div className="mt-6 text-center text-yellow-600 font-semibold">
           ⏳ Your request is under admin review.

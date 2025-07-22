@@ -1,21 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query"; //  TanStack Query
 import { FaUserShield } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const AllUsersTable = () => {
-  const [users, setUsers] = useState([]);
   const axiosSecure = useAxiosSecure();
 
-  // Fetch all users
-  useEffect(() => {
-    axiosSecure
-      .get("/users")
-      .then((res) => setUsers(res.data))
-      .catch((err) => console.error("❌ Failed to fetch users:", err));
-  }, [axiosSecure]);
+  //  Use TanStack Query for fetching users
+  const {
+    data: users = [],
+    refetch,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/users");
+      return res.data;
+    },
+  });
 
-  // Make Admin handler
+  //  Show loading/error state if needed
+  if (isLoading) return <p className="text-center py-10">Loading users...</p>;
+  if (isError)
+    return (
+      <p className="text-center text-red-500 py-10">Failed to load users.</p>
+    );
+
+  // 🔄 Make Admin Handler
   const handleMakeAdmin = (id, email) => {
     Swal.fire({
       title: "Are you sure?",
@@ -29,13 +42,8 @@ const AllUsersTable = () => {
           .patch(`/users/admin/${id}`)
           .then((res) => {
             if (res.data.modifiedCount > 0) {
-              // Update local state
-              const updated = users.map((user) =>
-                user._id === id ? { ...user, role: "admin" } : user
-              );
-              setUsers(updated);
-
               Swal.fire("Success!", `${email} is now an admin`, "success");
+              refetch(); //  Refetch after role update
             }
           })
           .catch(() => {

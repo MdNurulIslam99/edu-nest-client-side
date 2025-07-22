@@ -21,6 +21,7 @@ import TeacherMyClass from "../pages/DashBoard/TeacherMyClass/TeacherMyClass";
 import AdminAllClasses from "../pages/DashBoard/AdminAllClasses/AdminAllClasses";
 import AllUsersTable from "../pages/DashBoard/AllUsersTable/AllUsersTable";
 import MyProfile from "../pages/DashBoard/MyProfile/MyProfile";
+import AllClassDetails from "../pages/AllClassDetails/AllClassDetails";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <TeacherRequestForm></TeacherRequestForm>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/allClassDetails/:id",
+        element: (
+          <PrivateRoute>
+            <AllClassDetails></AllClassDetails>
           </PrivateRoute>
         ),
       },

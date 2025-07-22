@@ -1,17 +1,53 @@
-import React, { useEffect, useState } from "react";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import React from "react";
+import { FaCheckCircle, FaTimesCircle, FaChartLine } from "react-icons/fa";
+import { useNavigate } from "react-router";
+import { useQuery } from "@tanstack/react-query"; //  TanStack Query
+import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AdminAllClasses = () => {
-  const [classes, setClasses] = useState([]);
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    axiosSecure
-      .get("/classes")
-      .then((res) => setClasses(res.data))
-      .catch((err) => console.error("❌ Failed to fetch all classes", err));
-  }, [axiosSecure]);
+  //  Fetch data using TanStack Query
+  const {
+    data: classes = [],
+    refetch,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["all-classes"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/classes");
+      return res.data;
+    },
+  });
+
+  const updateStatus = async (id, status) => {
+    try {
+      await axiosSecure.patch(`/classes/${id}`, { status });
+      Swal.fire("Success", `Class ${status}!`, "success");
+      refetch(); //  Refetch after update
+    } catch (err) {
+      Swal.fire("Error", "Failed to update class status", "error");
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="text-center text-lg font-medium mt-10">
+        Loading classes...
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="text-center text-lg text-red-500 mt-10">
+        Failed to load classes.
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mt-16 rounded-lg shadow-2xl bg-gray-100 mx-auto px-4 py-10">
@@ -27,45 +63,38 @@ const AdminAllClasses = () => {
 
       <div className="overflow-x-auto rounded-lg shadow">
         <table className="table table-zebra w-full text-center">
-          {/* Head */}
           <thead className="bg-indigo-100 text-indigo-800 text-sm uppercase">
             <tr>
-              <th className="text-center">#</th>
-              <th className="text-center">Image</th>
-              <th className="text-center">Title</th>
-              <th className="text-center">Email</th>
-              <th className="text-center">Description</th>
-              <th className="text-center">Status</th>
-              <th className="text-center">Actions</th>
+              <th>#</th>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Email</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Actions</th>
+              <th>Progress</th>
             </tr>
           </thead>
 
-          {/* Body */}
           <tbody>
             {classes.map((cls, index) => (
-              <tr key={cls._id} className="text-center">
-                <td className="align-middle">{index + 1}</td>
-                <td className="align-middle">
-                  <div className="flex justify-center">
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <img
-                          src={cls.image}
-                          alt={cls.title}
-                          className="object-cover"
-                        />
-                      </div>
+              <tr key={cls._id}>
+                <td>{index + 1}</td>
+                <td>
+                  <div className="avatar">
+                    <div className="mask mask-squircle w-12 h-12">
+                      <img src={cls.image} alt={cls.title} />
                     </div>
                   </div>
                 </td>
-                <td className="font-medium align-middle">{cls.title}</td>
-                <td className="text-sm align-middle">{cls.instructorEmail}</td>
-                <td className="text-sm align-middle max-w-xs text-left px-4">
+                <td>{cls.title}</td>
+                <td className="text-sm">{cls.instructorEmail}</td>
+                <td className="text-left max-w-xs">
                   {cls.description.length > 100
                     ? cls.description.slice(0, 100) + "..."
                     : cls.description}
                 </td>
-                <td className="align-middle">
+                <td>
                   <span
                     className={`badge text-white ${
                       cls.status === "approved"
@@ -78,15 +107,35 @@ const AdminAllClasses = () => {
                     {cls.status || "pending"}
                   </span>
                 </td>
-                <td className="align-middle">
+                <td>
                   <div className="flex justify-center gap-2">
-                    <button className="btn btn-xs btn-success text-white">
+                    <button
+                      className="btn btn-xs btn-success text-white"
+                      onClick={() => updateStatus(cls._id, "approved")}
+                      disabled={cls.status === "approved"}
+                    >
                       <FaCheckCircle className="mr-1" /> Approve
                     </button>
-                    <button className="btn btn-xs btn-error text-white">
+                    <button
+                      className="btn btn-xs btn-error text-white"
+                      onClick={() => updateStatus(cls._id, "rejected")}
+                      disabled={cls.status === "rejected"}
+                    >
                       <FaTimesCircle className="mr-1" /> Reject
                     </button>
                   </div>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-xs btn-info text-white"
+                    disabled={cls.status !== "approved"}
+                    onClick={() =>
+                      navigate(`/dashboard/classProgress/${cls._id}`)
+                    }
+                  >
+                    <FaChartLine className="mr-1" />
+                    Progress
+                  </button>
                 </td>
               </tr>
             ))}

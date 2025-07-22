@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import useAxios from "../../../hooks/useAxios";
+import { useMutation } from "@tanstack/react-query";
 
 const SignUp = () => {
   const { createUser, updatedUser, signInWithGoogle, setUser } =
@@ -23,6 +24,11 @@ const SignUp = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
+  // Mutation for saving new user (both email & Google)
+  const addUserMutation = useMutation({
+    mutationFn: (newUser) => axiosInstance.post("/users", newUser),
+  });
 
   const onSubmit = (data) => {
     const { name, email, password, photoUrl, phone } = data;
@@ -56,21 +62,21 @@ const SignUp = () => {
             email,
             photoUrl,
             phone,
-            role: "student", // or "teacher", based on signup logic
+            role: "student",
             createdAt: new Date().toISOString(),
             lastLogin: new Date().toISOString(),
           };
 
-          axiosInstance
-            .post("/users", newUser)
-            .then(() => {
+          addUserMutation.mutate(newUser, {
+            onSuccess: () => {
               reset();
               Swal.fire("Success", "User signed up successfully!", "success");
               navigate("/");
-            })
-            .catch(() => {
+            },
+            onError: () => {
               Swal.fire("Error", "Failed to save user to DB", "error");
-            });
+            },
+          });
         });
       })
       .catch(() => {
@@ -96,19 +102,19 @@ const SignUp = () => {
           lastLogin: new Date().toISOString(),
         };
 
-        axiosInstance
-          .post("/users", userInfo)
-          .then(() => {
+        addUserMutation.mutate(userInfo, {
+          onSuccess: () => {
             Swal.fire(
               "Success",
               "Signed up with Google successfully",
               "success"
             );
             navigate("/");
-          })
-          .catch(() => {
+          },
+          onError: () => {
             Swal.fire("Error", "Failed to save Google user", "error");
-          });
+          },
+        });
       })
       .catch(() => {
         Swal.fire("Error", "Google Sign Up failed", "error");
@@ -157,7 +163,7 @@ const SignUp = () => {
             )}
           </div>
 
-          {/*  Phone Number */}
+          {/* Phone Number */}
           <div className="space-y-2">
             <label htmlFor="phone" className="block text-base font-semibold">
               Phone Number
