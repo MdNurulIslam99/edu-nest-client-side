@@ -1,6 +1,7 @@
 import React from "react";
 import SwiperSlider from "../SwiperSlider/SwiperSlider";
 import PartnersSection from "../PartnersSection/PartnersSection";
+import PopularClasses from "../PopularClasses/PopularClasses";
 
 const Home = () => {
   return (
@@ -12,7 +13,9 @@ const Home = () => {
         <div className="mt-5 mb-10">
           <PartnersSection></PartnersSection>
         </div>
-        <div></div>
+        <div className="mt-5 mb-10">
+          <PopularClasses></PopularClasses>
+        </div>
         <div></div>
         <div></div>
       </div>
