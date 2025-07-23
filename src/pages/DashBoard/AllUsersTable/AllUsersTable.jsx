@@ -1,13 +1,12 @@
 import React from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query"; //  TanStack Query
-import { FaUserShield } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
+import { FaUserShield, FaUserSlash } from "react-icons/fa"; // 🆕
 import Swal from "sweetalert2";
 
 const AllUsersTable = () => {
   const axiosSecure = useAxiosSecure();
 
-  //  Use TanStack Query for fetching users
   const {
     data: users = [],
     refetch,
@@ -21,29 +20,34 @@ const AllUsersTable = () => {
     },
   });
 
-  //  Show loading/error state if needed
   if (isLoading) return <p className="text-center py-10">Loading users...</p>;
   if (isError)
     return (
       <p className="text-center text-red-500 py-10">Failed to load users.</p>
     );
 
-  // 🔄 Make Admin Handler
-  const handleMakeAdmin = (id, email) => {
+  // ✅ 1. Update handler name & logic
+  const handleToggleAdmin = (id, email, currentRole) => {
+    const action = currentRole === "admin" ? "remove admin" : "make admin";
+
     Swal.fire({
       title: "Are you sure?",
-      text: `Make ${email} an admin?`,
+      text: `Do you want to ${action} for ${email}?`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes, make admin",
+      confirmButtonText: `Yes, ${action}`,
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .patch(`/users/admin/${id}`)
+          .patch(`/users/toggle-admin/${id}`)
           .then((res) => {
             if (res.data.modifiedCount > 0) {
-              Swal.fire("Success!", `${email} is now an admin`, "success");
-              refetch(); //  Refetch after role update
+              Swal.fire(
+                "Success",
+                `${email} is now ${res.data.newRole}`,
+                "success"
+              );
+              refetch(); // ✅ Refetch users
             }
           })
           .catch(() => {
@@ -68,7 +72,7 @@ const AllUsersTable = () => {
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
-              <th>Make Admin</th>
+              <th>Action</th> {/* 🆕 updated heading */}
             </tr>
           </thead>
           <tbody>
@@ -96,16 +100,19 @@ const AllUsersTable = () => {
                   </span>
                 </td>
                 <td>
-                  {user.role !== "admin" ? (
-                    <button
-                      className="btn btn-sm btn-outline btn-success"
-                      onClick={() => handleMakeAdmin(user._id, user.email)}
-                    >
-                      <FaUserShield className="mr-1" /> Make Admin
-                    </button>
-                  ) : (
-                    <span className="text-gray-400 text-sm">Already Admin</span>
-                  )}
+                  <button
+                    className={`btn btn-sm ${
+                      user.role === "admin"
+                        ? "btn-outline btn-error"
+                        : "btn-outline btn-success"
+                    }`}
+                    onClick={() =>
+                      handleToggleAdmin(user._id, user.email, user.role)
+                    }
+                  >
+                    <FaUserShield className="mr-1" />
+                    {user.role === "admin" ? "Remove Admin" : "Make Admin"}
+                  </button>
                 </td>
               </tr>
             ))}
