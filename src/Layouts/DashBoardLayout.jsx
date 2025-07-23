@@ -12,8 +12,11 @@ import {
 import { Outlet } from "react-router";
 
 import { NavLink } from "react-router";
+import useUserRole from "../hooks/useUserRole";
 
 const DashBoardLayout = () => {
+  const { role, roleLoading } = useUserRole();
+  console.log(role);
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -62,59 +65,70 @@ const DashBoardLayout = () => {
             </NavLink>
           </li>
 
-          <li>
-            <NavLink to="/dashBoard/addClass">
-              <FaPlusCircle className="mr-2" /> Add Class
-            </NavLink>
-          </li>
+          {!roleLoading && role === "teacher" && (
+            <>
+              <li>
+                <NavLink to="/dashBoard/addClass">
+                  <FaPlusCircle className="mr-2" /> Add Class
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/teacherMyClass"
+                  className="flex items-center"
+                >
+                  <FaChalkboardTeacher className="mr-2" /> My Classes
+                </NavLink>
+              </li>
+            </>
+          )}
 
-          <li>
-            <NavLink
-              to="/dashboard/teacherRequest"
-              className="flex items-center"
-            >
-              <FaClipboardList className="mr-2" /> Teacher Request
-            </NavLink>
-          </li>
+          {!roleLoading && role === "admin" && (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard/teacherRequest"
+                  className="flex items-center"
+                >
+                  <FaClipboardList className="mr-2" /> Teacher Request
+                </NavLink>
+              </li>
 
-          <li>
-            <NavLink
-              to="/dashboard/teacherMyClass"
-              className="flex items-center"
-            >
-              <FaChalkboardTeacher className="mr-2" /> My Classes
-            </NavLink>
-          </li>
+              <li>
+                <NavLink
+                  to="/dashboard/adminAllClasses"
+                  className="flex items-center"
+                >
+                  <FaUserGraduate className="mr-2" /> All Classes
+                </NavLink>
+              </li>
 
-          <li>
-            <NavLink
-              to="/dashboard/adminAllClasses"
-              className="flex items-center"
-            >
-              <FaUserGraduate className="mr-2" /> All Classes
-            </NavLink>
-          </li>
+              <li>
+                <NavLink
+                  to="/dashboard/allUsersTable"
+                  className="flex items-center"
+                >
+                  <FaUsersCog className="mr-2" /> All Users
+                </NavLink>
+              </li>
+            </>
+          )}
 
-          <li>
-            <NavLink
-              to="/dashboard/allUsersTable"
-              className="flex items-center"
-            >
-              <FaUsersCog className="mr-2" /> All Users
-            </NavLink>
-          </li>
-
+          {!roleLoading && role === "student" && (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard/myEnrollClass"
+                  className="flex items-center"
+                >
+                  <FaGraduationCap className="mr-2" /> My Enroll Class
+                </NavLink>
+              </li>
+            </>
+          )}
           <li>
             <NavLink to="/dashboard/myProfile" className="flex items-center">
               <FaUserCircle className="mr-2" /> My Profile
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/dashboard/myEnrollClass"
-              className="flex items-center"
-            >
-              <FaGraduationCap className="mr-2" /> My Enroll Class
             </NavLink>
           </li>
         </ul>

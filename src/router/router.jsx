@@ -26,6 +26,9 @@ import CoursePayment from "../pages/DashBoard/CoursePayment/CoursePayment";
 import MyEnrollClass from "../pages/DashBoard/MyEnrollClass/MyEnrollClass";
 import MyEnrollClassDetails from "../pages/DashBoard/MyEnrollClassDetails/MyEnrollClassDetails";
 import TeacherClassDetails from "../pages/DashBoard/TeacherClassDetails/TeacherClassDetails";
+import Forbidden from "../pages/Forbidden/Forbidden";
+import AdminRoute from "../routes/AdminRoute";
+import TeacherRoute from "../routes/TeacherRoute";
 
 const router = createBrowserRouter([
   {
@@ -104,6 +107,10 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <SignUp></SignUp>,
       },
+      {
+        path: "/forbidden",
+        element: <Forbidden></Forbidden>,
+      },
     ],
   },
   {
@@ -122,11 +129,19 @@ const router = createBrowserRouter([
 
       {
         path: "adminAllClasses",
-        element: <AdminAllClasses></AdminAllClasses>,
+        element: (
+          <AdminRoute>
+            <AdminAllClasses></AdminAllClasses>,
+          </AdminRoute>
+        ),
       },
       {
         path: "allUsersTable",
-        element: <AllUsersTable></AllUsersTable>,
+        element: (
+          <AdminRoute>
+            <AllUsersTable></AllUsersTable>,
+          </AdminRoute>
+        ),
       },
       {
         path: "myProfile",
@@ -134,11 +149,27 @@ const router = createBrowserRouter([
       },
       {
         path: "teacherRequest",
-        element: <TeacherRequest></TeacherRequest>,
+        element: (
+          <AdminRoute>
+            <TeacherRequest></TeacherRequest>
+          </AdminRoute>
+        ),
       },
       {
         path: "teacherMyClass",
-        element: <TeacherMyClass></TeacherMyClass>,
+        element: (
+          <TeacherRoute>
+            <TeacherMyClass></TeacherMyClass>
+          </TeacherRoute>
+        ),
+      },
+      {
+        path: "teacherClassDetails/:id",
+        element: (
+          <TeacherRoute>
+            <TeacherClassDetails></TeacherClassDetails>
+          </TeacherRoute>
+        ),
       },
       {
         path: "myEnrollClass",
@@ -147,10 +178,6 @@ const router = createBrowserRouter([
       {
         path: "myEnrollClassDetails/:id",
         element: <MyEnrollClassDetails></MyEnrollClassDetails>,
-      },
-      {
-        path: "teacherClassDetails/:id",
-        element: <TeacherClassDetails></TeacherClassDetails>,
       },
     ],
   },

@@ -175,7 +175,7 @@ const AddClass = () => {
                 <span className="text-red-500">Price is required</span>
               )}
             </div>
-            <div>
+            {/* <div>
               <label>Discount Price ($)</label>
               <input
                 type="number"
@@ -183,7 +183,7 @@ const AddClass = () => {
                 {...register("discount")}
                 className="w-full px-4 py-2 border rounded"
               />
-            </div>
+            </div> */}
             <div>
               <label>Total Seats</label>
               <input
