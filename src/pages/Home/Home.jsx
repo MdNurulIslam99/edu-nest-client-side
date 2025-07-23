@@ -2,6 +2,12 @@ import React from "react";
 import SwiperSlider from "../SwiperSlider/SwiperSlider";
 import PartnersSection from "../PartnersSection/PartnersSection";
 import PopularClasses from "../PopularClasses/PopularClasses";
+import FeedbackCarousel from "../FeedbackCarousel/FeedbackCarousel";
+import SiteStats from "../SiteStats/SiteStats";
+import BecomeTeacher from "../BecomeTeacher/BecomeTeacher";
+import StudentTestimonials from "../StudentTestimonials/StudentTestimonials";
+import HowEduNestWorks from "../HowEduNestWorks/HowEduNestWorks";
+import MeetInstructors from "../MeetInstructors/MeetInstructors";
 
 const Home = () => {
   return (
@@ -16,8 +22,24 @@ const Home = () => {
         <div className="mt-5 mb-10">
           <PopularClasses></PopularClasses>
         </div>
-        <div></div>
-        <div></div>
+        <div className="mt-5 mb-10">
+          <FeedbackCarousel></FeedbackCarousel>
+        </div>
+        <div className="mt-5 mb-10">
+          <SiteStats></SiteStats>
+        </div>
+        <div className="mt-5 mb-10">
+          <BecomeTeacher></BecomeTeacher>
+        </div>
+        <div className="mt-5 mb-10">
+          <StudentTestimonials></StudentTestimonials>
+        </div>
+        <div className="mt-5 mb-10">
+          <HowEduNestWorks></HowEduNestWorks>
+        </div>
+        <div className="mt-5 mb-10">
+          <MeetInstructors></MeetInstructors>
+        </div>
       </div>
     </div>
   );

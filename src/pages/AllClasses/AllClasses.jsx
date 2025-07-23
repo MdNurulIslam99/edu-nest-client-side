@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaUserGraduate, FaMoneyBillWave, FaBookOpen } from "react-icons/fa";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useNavigate } from "react-router";
@@ -10,6 +10,10 @@ const AllClasses = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const classesPerPage = 10;
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   // Fetch all classes then filter approved client-side
   const {

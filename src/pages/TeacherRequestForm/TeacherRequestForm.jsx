@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
@@ -10,6 +10,10 @@ const TeacherRequestForm = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [experience, setExperience] = useState("");
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
