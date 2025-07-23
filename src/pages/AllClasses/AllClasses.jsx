@@ -93,7 +93,7 @@ const AllClasses = () => {
                   </span>
                   <span className="flex items-center">
                     <FaBookOpen className="mr-1 text-blue-500" />
-                    Enrolled: {cls.totalEnrolled || 0}
+                    Enrolled: {cls.totalEnrollment || 0}
                   </span>
                 </div>
 

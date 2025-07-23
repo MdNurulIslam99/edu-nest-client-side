@@ -7,6 +7,7 @@ import {
   FaUserGraduate,
   FaUsersCog,
   FaUserCircle,
+  FaGraduationCap,
 } from "react-icons/fa";
 import { Outlet } from "react-router";
 
@@ -106,6 +107,14 @@ const DashBoardLayout = () => {
           <li>
             <NavLink to="/dashboard/myProfile" className="flex items-center">
               <FaUserCircle className="mr-2" /> My Profile
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/dashboard/myEnrollClass"
+              className="flex items-center"
+            >
+              <FaGraduationCap className="mr-2" /> My Enroll Class
             </NavLink>
           </li>
         </ul>

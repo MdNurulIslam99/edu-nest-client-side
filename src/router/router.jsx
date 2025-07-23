@@ -22,6 +22,10 @@ import AdminAllClasses from "../pages/DashBoard/AdminAllClasses/AdminAllClasses"
 import AllUsersTable from "../pages/DashBoard/AllUsersTable/AllUsersTable";
 import MyProfile from "../pages/DashBoard/MyProfile/MyProfile";
 import AllClassDetails from "../pages/AllClassDetails/AllClassDetails";
+import CoursePayment from "../pages/DashBoard/CoursePayment/CoursePayment";
+import MyEnrollClass from "../pages/DashBoard/MyEnrollClass/MyEnrollClass";
+import MyEnrollClassDetails from "../pages/DashBoard/MyEnrollClassDetails/MyEnrollClassDetails";
+import TeacherClassDetails from "../pages/DashBoard/TeacherClassDetails/TeacherClassDetails";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +49,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AllClassDetails></AllClassDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/coursePayment/:id",
+        element: (
+          <PrivateRoute>
+            <CoursePayment></CoursePayment>
           </PrivateRoute>
         ),
       },
@@ -107,6 +119,7 @@ const router = createBrowserRouter([
         path: "addClass",
         element: <AddClass></AddClass>,
       },
+
       {
         path: "adminAllClasses",
         element: <AdminAllClasses></AdminAllClasses>,
@@ -126,6 +139,18 @@ const router = createBrowserRouter([
       {
         path: "teacherMyClass",
         element: <TeacherMyClass></TeacherMyClass>,
+      },
+      {
+        path: "myEnrollClass",
+        element: <MyEnrollClass></MyEnrollClass>,
+      },
+      {
+        path: "myEnrollClassDetails/:id",
+        element: <MyEnrollClassDetails></MyEnrollClassDetails>,
+      },
+      {
+        path: "teacherClassDetails/:id",
+        element: <TeacherClassDetails></TeacherClassDetails>,
       },
     ],
   },

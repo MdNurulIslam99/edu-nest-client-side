@@ -26,7 +26,7 @@ const AllClassDetails = () => {
   });
 
   const handlePay = () => {
-    navigate(`/payment/${id}`);
+    navigate(`/coursePayment/${id}`);
   };
 
   if (isLoading) {
