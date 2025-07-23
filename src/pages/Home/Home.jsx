@@ -8,6 +8,7 @@ import BecomeTeacher from "../BecomeTeacher/BecomeTeacher";
 import StudentTestimonials from "../StudentTestimonials/StudentTestimonials";
 import HowEduNestWorks from "../HowEduNestWorks/HowEduNestWorks";
 import MeetInstructors from "../MeetInstructors/MeetInstructors";
+import SupportSessions from "../SupportSessions/SupportSessions";
 
 const Home = () => {
   return (
@@ -36,6 +37,9 @@ const Home = () => {
         </div>
         <div className="mt-5 mb-10">
           <HowEduNestWorks></HowEduNestWorks>
+        </div>
+        <div className="mt-5 mb-10">
+          <SupportSessions></SupportSessions>
         </div>
         <div className="mt-5 mb-10">
           <MeetInstructors></MeetInstructors>

@@ -2,27 +2,33 @@ import React from "react";
 
 const instructors = [
   {
-    name: "Sadia Ahmed",
+    name: "Dablu Hossain",
     subject: "Frontend Development",
-    image: "https://i.ibb.co/s2wCP0Z/instructor1.jpg",
+    image: "https://i.ibb.co/tpfFtnw5/user3.jpg",
     bio: "5+ years teaching experience in React and modern web technologies.",
   },
   {
-    name: "Tanvir Hossain",
+    name: "kablu Hasan",
     subject: "Digital Marketing",
-    image: "https://i.ibb.co/k20BzpK/instructor2.jpg",
+    image: "https://i.ibb.co/rG4wj2yj/user2.jpg",
     bio: "Expert in SEO, branding, and online business strategies.",
+  },
+  {
+    name: "Asif Hasan",
+    subject: "DataScience",
+    image: "https://i.ibb.co/FbjPWqMs/user4.jpg",
+    bio: "3+ years teaching experience in DataScience & Cloud",
   },
 ];
 
 const MeetInstructors = () => {
   return (
-    <section className="py-16 bg-indigo-50">
+    <div className="py-16 bg-indigo-50  shadow-2xl rounded-xl">
       <div className="max-w-6xl mx-auto px-4 text-center">
         <h2 className="text-4xl font-bold text-indigo-700 mb-10">
           Meet Our Instructors
         </h2>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {instructors.map((ins, i) => (
             <div
               key={i}
@@ -46,7 +52,7 @@ const MeetInstructors = () => {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
