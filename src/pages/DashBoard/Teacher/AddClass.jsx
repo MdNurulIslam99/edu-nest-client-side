@@ -121,6 +121,10 @@ const AddClass = () => {
                 <option value="">Select category</option>
                 <option value="Development">Development</option>
                 <option value="Design">Design</option>
+                <option value="Design">Photography</option>
+                <option value="Design">Business</option>
+                <option value="Design">Data Science</option>
+                <option value="Design">Marketing</option>
               </select>
               {errors.category && (
                 <span className="text-red-500">Category is required</span>

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { FaUserGraduate, FaMoneyBillWave, FaBookOpen } from "react-icons/fa";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useNavigate } from "react-router";
@@ -8,9 +8,12 @@ const AllClasses = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
-  //  changed: TanStack query for GET request
+  const [currentPage, setCurrentPage] = useState(1);
+  const classesPerPage = 10;
+
+  // Fetch all classes then filter approved client-side
   const {
-    data: classes = [],
+    data: allClasses = [],
     isLoading,
     isError,
   } = useQuery({
@@ -21,8 +24,16 @@ const AllClasses = () => {
     },
   });
 
+  // Pagination calculations
+  const totalClasses = allClasses.length;
+  const totalPages = Math.ceil(totalClasses / classesPerPage);
+
+  const indexOfLast = currentPage * classesPerPage;
+  const indexOfFirst = indexOfLast - classesPerPage;
+  const currentClasses = allClasses.slice(indexOfFirst, indexOfLast);
+
   const handleEnroll = (id) => {
-    navigate(`/allClassDetails/${id}`); //  Go to class details page
+    navigate(`/allClassDetails/${id}`);
   };
 
   if (isLoading) {
@@ -55,7 +66,7 @@ const AllClasses = () => {
 
       {/* Class Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {classes.map((cls) => (
+        {currentClasses.map((cls) => (
           <div
             key={cls._id}
             className="mt-10 card bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 hover:shadow-2xl transition duration-300"
@@ -81,7 +92,7 @@ const AllClasses = () => {
                   </span>
                 </p>
                 <p className="text-sm text-gray-600 mt-2">
-                  {cls.description?.slice(0, 80)}...
+                  {cls.description?.slice(0, 50)}...
                 </p>
               </div>
 
@@ -109,9 +120,28 @@ const AllClasses = () => {
         ))}
       </div>
 
-      {classes.length === 0 && (
+      {totalClasses === 0 && (
         <div className="text-center mt-10 text-gray-500">
           No approved classes available.
+        </div>
+      )}
+
+      {/* Pagination Controls */}
+      {totalClasses > classesPerPage && (
+        <div className="flex justify-center mt-12 space-x-2">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(i + 1)}
+              className={`px-4 py-2 rounded ${
+                currentPage === i + 1
+                  ? "bg-indigo-600 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-indigo-300"
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
         </div>
       )}
     </div>

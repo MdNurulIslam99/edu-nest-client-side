@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import { FaUserShield, FaUserSlash } from "react-icons/fa"; // 🆕
+import { FaUserShield } from "react-icons/fa";
 import Swal from "sweetalert2";
+
+const USERS_PER_PAGE = 10;
 
 const AllUsersTable = () => {
   const axiosSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(1);
 
   const {
     data: users = [],
@@ -26,7 +29,13 @@ const AllUsersTable = () => {
       <p className="text-center text-red-500 py-10">Failed to load users.</p>
     );
 
-  // ✅ 1. Update handler name & logic
+  // Pagination logic
+  const totalUsers = users.length;
+  const totalPages = Math.ceil(totalUsers / USERS_PER_PAGE);
+  const indexOfLastUser = currentPage * USERS_PER_PAGE;
+  const indexOfFirstUser = indexOfLastUser - USERS_PER_PAGE;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
   const handleToggleAdmin = (id, email, currentRole) => {
     const action = currentRole === "admin" ? "remove admin" : "make admin";
 
@@ -47,7 +56,7 @@ const AllUsersTable = () => {
                 `${email} is now ${res.data.newRole}`,
                 "success"
               );
-              refetch(); // ✅ Refetch users
+              refetch();
             }
           })
           .catch(() => {
@@ -72,13 +81,13 @@ const AllUsersTable = () => {
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
-              <th>Action</th> {/* 🆕 updated heading */}
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {currentUsers.map((user, index) => (
               <tr key={user._id}>
-                <td>{index + 1}</td>
+                <td>{indexOfFirstUser + index + 1}</td>
                 <td>
                   <div className="flex justify-center">
                     <div className="avatar">
@@ -123,6 +132,25 @@ const AllUsersTable = () => {
           <p className="text-center text-gray-500 py-6">No users found.</p>
         )}
       </div>
+
+      {/* ✅ Pagination Footer */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-6">
+          <div className="join">
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <button
+                key={i}
+                className={`join-item btn btn-sm ${
+                  currentPage === i + 1 ? "btn-primary" : "btn-outline"
+                }`}
+                onClick={() => setCurrentPage(i + 1)}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

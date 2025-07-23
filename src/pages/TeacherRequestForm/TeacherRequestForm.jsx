@@ -1,193 +1,154 @@
 import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
-import Swal from "sweetalert2";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
-import { useQuery, useQueryClient } from "@tanstack/react-query"; //  updated
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const TeacherRequestForm = () => {
-  const axiosSecure = useAxiosSecure();
-  const queryClient = useQueryClient(); //  updated
   const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [experience, setExperience] = useState("");
 
-  const [requestId, setRequestId] = useState(null);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  //  useQuery to fetch teacher request by user email
-  const { data: requestData, isLoading } = useQuery({
-    queryKey: ["teacherRequest", user?.email],
-    enabled: !!user?.email,
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/teacherRequests?email=${user.email}`);
-      const existing = res.data?.[0];
-      if (existing) {
-        setRequestId(existing._id);
-      }
-      return existing || null;
-    },
-  });
-
-  const requestStatus = requestData?.status;
-
-  const onSubmit = async (data) => {
     const requestData = {
-      ...data,
+      name: user.displayName,
+      email: user.email,
+      image: user.photoURL,
+      experience,
+      title,
+      category,
       status: "pending",
-      image: user?.photoURL,
-      email: user?.email,
-      name: user?.displayName,
-      requestDate: new Date().toISOString(),
     };
 
     try {
-      if (requestStatus === "rejected" && requestId) {
-        const res = await axiosSecure.put(
-          `/teacherRequests/${requestId}`,
-          requestData
-        );
-        if (res.data.modifiedCount > 0) {
-          Swal.fire("Success", "Your request has been resubmitted!", "success");
-          queryClient.invalidateQueries(["teacherRequest", user?.email]); //  update cache
-        }
-      } else {
-        const res = await axiosSecure.post("/teacherRequests", requestData);
-        if (res.data.insertedId) {
-          Swal.fire("Success", "Your request has been submitted!", "success");
-          reset();
-          queryClient.invalidateQueries(["teacherRequest", user?.email]); //  update cache
-        }
+      const res = await axiosSecure.post("/teacherRequests", requestData);
+
+      if (res.data.insertedId) {
+        Swal.fire({
+          icon: "success",
+          title: "Request Submitted",
+          text: "Your teacher request has been sent to admin!",
+        });
+        setTitle("");
+        setCategory("");
+        setExperience("");
       }
     } catch (error) {
-      console.error("Submission failed", error);
+      console.error("Error submitting request", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response?.data?.message || "Submission failed.",
+      });
     }
   };
 
-  if (isLoading) {
-    return <div className="text-center mt-20">Loading...</div>; //  loading state
-  }
-
-  if (requestStatus === "approved") {
-    return (
-      <div className="text-center mt-24 p-10 bg-green-100 rounded-xl text-green-800 text-xl font-semibold shadow-xl">
-        🎉 You are already an approved teacher on EduNest!
-      </div>
-    );
-  }
-
   return (
-    <div className="max-w-4xl mx-auto mt-28 p-6 rounded-2xl bg-white shadow-xl mb-20">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-indigo-700 mb-2">
-          Become an Instructor
-        </h1>
-        <p className="text-gray-600">
-          Share your expertise and teach students across the world on EduNest!
-        </p>
-      </div>
+    <div className="max-w-3xl mx-auto my-10 p-6 bg-base-200 shadow-lg mt-28 mb-10 rounded-lg">
+      <h2 className="text-3xl font-bold mb-6 text-center">Become a Teacher</h2>
 
-      {requestStatus !== "pending" && (
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="grid md:grid-cols-2 gap-6"
-        >
-          {/* Name */}
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
+        {/* Section 1: User Info */}
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold mb-2">Your Info</h3>
           <div>
-            <label className="label">Name</label>
+            <label className="block font-medium">Name</label>
             <input
               type="text"
-              defaultValue={user?.displayName}
-              readOnly
-              className="input input-bordered w-full"
-              {...register("name")}
+              value={user.displayName}
+              disabled
+              className="w-full px-4 py-2 border rounded bg-gray-100"
             />
           </div>
-
-          {/* Email */}
           <div>
-            <label className="label">Email</label>
+            <label className="block font-medium">Email</label>
             <input
               type="email"
-              defaultValue={user?.email}
-              readOnly
-              className="input input-bordered w-full"
-              {...register("email")}
+              value={user.email}
+              disabled
+              className="w-full px-4 py-2 border rounded bg-gray-100"
             />
           </div>
-
-          {/* Experience */}
           <div>
-            <label className="label">Experience</label>
-            <select
-              {...register("experience", { required: true })}
-              className="select select-bordered w-full"
-            >
-              <option value="">Select Experience</option>
-              <option value="beginner">Beginner</option>
-              <option value="mid-level">Mid-level</option>
-              <option value="experienced">Experienced</option>
-            </select>
-            {errors.experience && (
-              <p className="text-red-500 text-sm">This field is required</p>
-            )}
-          </div>
-
-          {/* Title */}
-          <div>
-            <label className="label">Title</label>
+            <label className="block font-medium">Profile Image</label>
             <input
               type="text"
-              placeholder="Ex: UI/UX Designer, MERN Stack Dev"
-              className="input input-bordered w-full"
-              {...register("title", { required: true })}
+              value={user.photoURL}
+              disabled
+              className="w-full px-4 py-2 border rounded bg-gray-100"
             />
-            {errors.title && (
-              <p className="text-red-500 text-sm">Title is required</p>
-            )}
+          </div>
+        </div>
+
+        {/* Section 2: Request Info */}
+        <div className="space-y-4">
+          <h3 className="text-xl font-semibold mb-2">Request Info</h3>
+          <div>
+            <label className="block font-medium">Experience</label>
+            <select
+              value={experience}
+              onChange={(e) => setExperience(e.target.value)}
+              className="w-full px-4 py-2 border rounded"
+              required
+            >
+              <option value="" disabled>
+                Select experience level
+              </option>
+              <option value="Beginner">Beginner</option>
+              <option value="Mid-Level">Mid-Level</option>
+              <option value="Experienced">Experienced</option>
+            </select>
           </div>
 
-          {/* Category */}
-          <div className="md:col-span-2">
-            <label className="label">Category</label>
+          <div>
+            <label className="block font-medium">Title</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="e.g. Senior JavaScript Developer"
+              className="w-full px-4 py-2 border rounded"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block font-medium">Category</label>
             <select
-              {...register("category", { required: true })}
-              className="select select-bordered w-full"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full px-4 py-2 border rounded"
+              required
             >
-              <option value="">Choose a category</option>
+              <option value="" disabled>
+                Select category
+              </option>
               <option value="Web Development">Web Development</option>
               <option value="Digital Marketing">Digital Marketing</option>
               <option value="Graphic Design">Graphic Design</option>
-              <option value="Cyber Security">Cyber Security</option>
               <option value="Data Science">Data Science</option>
+              <option value="Cyber Security">Cyber Security</option>
             </select>
-            {errors.category && (
-              <p className="text-red-500 text-sm">Category is required</p>
-            )}
           </div>
-
-          <div className="md:col-span-2">
-            <button
-              className="btn bg-indigo-600 text-white hover:bg-indigo-700 w-full"
-              type="submit"
-            >
-              {requestStatus === "rejected"
-                ? "Request Another"
-                : "Submit for Review"}
-            </button>
-          </div>
-        </form>
-      )}
-
-      {requestStatus === "pending" && (
-        <div className="mt-6 text-center text-yellow-600 font-semibold">
-          ⏳ Your request is under admin review.
         </div>
-      )}
+
+        {/* Submit Button */}
+        <div className="md:col-span-2">
+          <button
+            type="submit"
+            className="w-full py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700"
+          >
+            Submit Teacher Request
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

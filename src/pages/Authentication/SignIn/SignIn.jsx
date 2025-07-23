@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 
-// text-white SignIn Component
 const SignIn = () => {
   const { signInUser, signInWithGoogle } = useContext(AuthContext);
   const location = useLocation();
@@ -14,16 +13,20 @@ const SignIn = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm(); // text-white useForm hook
+  } = useForm();
 
+  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // text-white Form submit handler
+  // Determine redirect path after login
+  const from = location.state?.pathname || "/";
+
+  // Handle form submit
   const onSubmit = ({ email, password }) => {
     signInUser(email, password)
-      .then((result) => {
+      .then(() => {
         Swal.fire({
           icon: "success",
           title: "Signed in successfully!",
@@ -32,9 +35,9 @@ const SignIn = () => {
           toast: true,
           position: "top-end",
         });
-        navigate(location.state?.from || "/");
+        navigate(from, { replace: true });
       })
-      .catch((error) => {
+      .catch(() => {
         Swal.fire({
           icon: "error",
           title: "Login Failed",
@@ -43,10 +46,10 @@ const SignIn = () => {
       });
   };
 
-  // text-white Google Signin
+  // Handle Google Sign In
   const handleGoogleSignin = () => {
     signInWithGoogle()
-      .then((result) => {
+      .then(() => {
         Swal.fire({
           icon: "success",
           title: "Signed in with Google!",
@@ -55,7 +58,7 @@ const SignIn = () => {
           toast: true,
           position: "top-end",
         });
-        navigate(location.state?.from || "/");
+        navigate(from, { replace: true });
       })
       .catch(() => {
         Swal.fire({
@@ -73,10 +76,9 @@ const SignIn = () => {
           Login to your account
         </h2>
 
-        {/* text-white Form handled by react-hook-form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           <div className="space-y-4">
-            {/* text-white Email */}
+            {/* Email */}
             <div className="space-y-2">
               <label htmlFor="email" className="block text-base font-semibold">
                 Email
@@ -86,14 +88,14 @@ const SignIn = () => {
                 id="email"
                 placeholder="you@example.com"
                 {...register("email", { required: "Email is required" })}
-                className="w-full px-3 py-2 border rounded-md text-white"
+                className="w-full px-3 py-2 border rounded-md text-white bg-transparent"
               />
               {errors.email && (
                 <p className="text-red-500 text-sm">{errors.email.message}</p>
               )}
             </div>
 
-            {/* text-white Password */}
+            {/* Password */}
             <div className="space-y-2">
               <div className="flex justify-between">
                 <label htmlFor="password" className="text-base font-semibold">
@@ -111,7 +113,7 @@ const SignIn = () => {
                 id="password"
                 placeholder="*****"
                 {...register("password", { required: "Password is required" })}
-                className="w-full px-3 py-2 border rounded-md text-white"
+                className="w-full px-3 py-2 border rounded-md text-white bg-transparent"
               />
               {errors.password && (
                 <p className="text-red-500 text-sm">
@@ -128,7 +130,7 @@ const SignIn = () => {
             <hr className="w-full text-gray-600" />
           </div>
 
-          {/* text-white Google Login */}
+          {/* Google Sign In */}
           <div>
             <button
               onClick={handleGoogleSignin}
@@ -143,11 +145,11 @@ const SignIn = () => {
               >
                 <path d="M16.318 13.714v5.484h9.078c-0.37 2.354-2.745 6.901-9.078 6.901-5.458 0-9.917-4.521-9.917-10.099s4.458-10.099 9.917-10.099c3.109 0 5.193 1.318 6.38 2.464l4.339-4.182c-2.786-2.599-6.396-4.182-10.719-4.182-8.844 0-16 7.151-16 16s7.156 16 16 16c9.234 0 15.365-6.49 15.365-15.635 0-1.052-0.115-1.854-0.255-2.651z" />
               </svg>
-              Sign Up with Google
+              Sign In with Google
             </button>
           </div>
 
-          {/* text-white Submit Button */}
+          {/* Submit Button */}
           <button
             type="submit"
             className="w-full px-8 py-3 text-lg bg-violet-600 font-semibold rounded-md text-white"
@@ -155,7 +157,7 @@ const SignIn = () => {
             Sign in
           </button>
 
-          {/* text-white Sign up link */}
+          {/* Signup link */}
           <p className="text-base text-center mt-4">
             Don't have an account?
             <NavLink
