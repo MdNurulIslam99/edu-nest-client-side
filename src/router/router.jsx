@@ -29,6 +29,7 @@ import TeacherClassDetails from "../pages/DashBoard/TeacherClassDetails/TeacherC
 import Forbidden from "../pages/Forbidden/Forbidden";
 import AdminRoute from "../routes/AdminRoute";
 import TeacherRoute from "../routes/TeacherRoute";
+import DashBoardHome from "../pages/DashBoard/DashBoardHome/DashBoardHome";
 
 const router = createBrowserRouter([
   {
@@ -122,6 +123,10 @@ const router = createBrowserRouter([
     ),
 
     children: [
+      {
+        index: true,
+        element: <DashBoardHome></DashBoardHome>,
+      },
       {
         path: "addClass",
         element: <AddClass></AddClass>,

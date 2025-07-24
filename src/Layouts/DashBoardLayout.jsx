@@ -8,11 +8,13 @@ import {
   FaUsersCog,
   FaUserCircle,
   FaGraduationCap,
+  FaReact,
 } from "react-icons/fa";
 import { Outlet } from "react-router";
 
 import { NavLink } from "react-router";
 import useUserRole from "../hooks/useUserRole";
+import LogoSection from "../pages/LogoSection/LogoSection";
 
 const DashBoardLayout = () => {
   const { role, roleLoading } = useUserRole();
@@ -59,6 +61,11 @@ const DashBoardLayout = () => {
         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
           {/* Sidebar content here */}
 
+          <li>
+            <NavLink to="/" className="flex items-center gap-2">
+              <LogoSection />
+            </NavLink>
+          </li>
           <li>
             <NavLink to="/">
               <FaHome className="mr-2" /> Home
