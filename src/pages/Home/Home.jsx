@@ -9,10 +9,12 @@ import StudentTestimonials from "../StudentTestimonials/StudentTestimonials";
 import HowEduNestWorks from "../HowEduNestWorks/HowEduNestWorks";
 import MeetInstructors from "../MeetInstructors/MeetInstructors";
 import SupportSessions from "../SupportSessions/SupportSessions";
+// import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   return (
     <div>
+      {/* <Helmet>EduNest | Home</Helmet> */}
       <div className="mt-14 mb-10">
         <SwiperSlider></SwiperSlider>
       </div>

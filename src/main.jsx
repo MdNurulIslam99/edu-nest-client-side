@@ -5,6 +5,7 @@ import router from "./router/router";
 import { RouterProvider } from "react-router";
 import AuthProvider from "./Context/AuthContext/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import { HelmetProvider } from "react-helmet-async";
 
 // Create a client
 const queryClient = new QueryClient();

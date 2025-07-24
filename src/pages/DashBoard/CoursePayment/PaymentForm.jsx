@@ -72,7 +72,7 @@ const PaymentForm = () => {
         setError(result.error.message);
       } else {
         if (result.paymentIntent.status === "succeeded") {
-          console.log("Payment succeeded!");
+          // console.log("Payment succeeded!");
 
           await axiosSecure.post("/payment-success", {
             classId: id,

@@ -8,7 +8,7 @@ const instructors = [
     bio: "5+ years teaching experience in React and modern web technologies.",
   },
   {
-    name: "kablu Hasan",
+    name: "kablus Hasan",
     subject: "Digital Marketing",
     image: "https://i.ibb.co/rG4wj2yj/user2.jpg",
     bio: "Expert in SEO, branding, and online business strategies.",

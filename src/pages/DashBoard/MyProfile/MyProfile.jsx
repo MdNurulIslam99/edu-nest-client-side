@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import { useQuery } from "@tanstack/react-query"; // UPDATED
+// import { Helmet } from "react-helmet-async";
 
 const MyProfile = () => {
   const { user } = useContext(AuthContext); // from Firebase Auth
@@ -33,6 +34,7 @@ const MyProfile = () => {
       transition={{ duration: 0.6 }}
       className="max-w-3xl mx-auto px-4 py-10"
     >
+      {/* <Helmet>EduNest | MyProfile</Helmet> */}
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-indigo-700">My Profile</h2>
         <p className="text-gray-500 mt-2">View your personal information</p>

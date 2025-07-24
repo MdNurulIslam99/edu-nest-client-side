@@ -18,7 +18,7 @@ const supportSessions = [
     title: "Evening Session",
     time: "7:00 PM - 10:00 PM",
     icon: <FaClock />,
-    mentor: "Mentor: kablu Hasan",
+    mentor: "Mentor: kablus Hasan",
   },
 ];
 

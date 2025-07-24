@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaUserGraduate, FaMoneyBillWave, FaBookOpen } from "react-icons/fa";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useNavigate } from "react-router";
+// import { Helmet } from "react-helmet-async";
 
 const AllClasses = () => {
   const axiosSecure = useAxiosSecure();
@@ -58,6 +59,9 @@ const AllClasses = () => {
 
   return (
     <div className="max-w-7xl mt-16 mb-10 mx-auto px-4 py-12">
+      {/* <Helmet>
+        <title>EduNest | AllClasses</title>
+      </Helmet> */}
       {/* Title Section */}
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-indigo-700">EduNest Courses</h2>
