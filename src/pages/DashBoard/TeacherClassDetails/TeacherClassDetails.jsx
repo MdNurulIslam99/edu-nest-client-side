@@ -93,13 +93,21 @@ const TeacherClassDetails = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-4 space-y-10">
-      <h2 className="text-3xl font-bold text-center text-primary mb-6">
-        Class Progress Overview
-      </h2>
+    <div className="max-w-6xl mt-16 mb-10 mx-auto p-4 space-y-10">
+      <div>
+        {" "}
+        <h2 className="text-3xl  font-bold text-center text-primary mb-4">
+          Class Progress Overview
+        </h2>
+        <p className="text-gray-600 max-w-4xl text-center mx-auto mt-2">
+          Quickly track your class's overall performance with insights into
+          enrollments, assignments, and submissions to measure student
+          engagement and progress.
+        </p>
+      </div>
 
       {/* Class Progress */}
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-3 gap-6 mt-14">
         <div className="card bg-blue-100 p-6 shadow">
           <h3 className="text-lg font-bold mb-2">Total Enrollment</h3>
           <p className="text-3xl font-semibold text-blue-700">
@@ -154,9 +162,9 @@ const TeacherClassDetails = () => {
       {/* Modal */}
       <dialog
         id="assignment_modal"
-        className="modal modal-bottom sm:modal-middle"
+        className="modal modal-bottom  sm:modal-middle"
       >
-        <div className="modal-box">
+        <div className="modal-box max-w-lg max-h-[90vh] overflow-y-auto">
           <h3 className="text-2xl font-bold mb-6 text-center">
             Create New Assignment
           </h3>

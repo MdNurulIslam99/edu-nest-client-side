@@ -35,28 +35,25 @@ const TeacherMyClass = () => {
       title: "Are you sure?",
       text: "This will permanently delete your class.",
       icon: "warning",
-      iconColor: "#d33", // red color for warning
+      iconColor: "#d33",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#aaa",
       confirmButtonText: "Yes, delete it!",
       cancelButtonText: "Cancel",
-      reverseButtons: true, // swaps confirm and cancel buttons position
+      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Deleting...",
           allowOutsideClick: false,
-          didOpen: () => {
-            Swal.showLoading();
-          },
+          didOpen: () => Swal.showLoading(),
         });
 
         axiosSecure
           .delete(`/classes/${id}`)
           .then((res) => {
-            Swal.close(); // close loading alert
-
+            Swal.close();
             if (res.data.deletedCount > 0 || res.data.message === "Deleted") {
               setLocalClasses((prev) => prev.filter((cls) => cls._id !== id));
               Swal.fire("Deleted!", "Your class has been removed.", "success");
@@ -85,7 +82,9 @@ const TeacherMyClass = () => {
   };
 
   // Save updated class info
-  const handleSaveChanges = async () => {
+  const handleSaveChanges = async (e) => {
+    e.preventDefault();
+
     try {
       const updatedClass = {
         ...editData,
@@ -101,13 +100,12 @@ const TeacherMyClass = () => {
         res.data.modifiedCount > 0 ||
         res.data.message === "Class updated successfully"
       ) {
-        // Update local state to reflect changes immediately
         setLocalClasses((prev) =>
           prev.map((cls) =>
             cls._id === editingClass._id ? { ...cls, ...updatedClass } : cls
           )
         );
-        setEditingClass(null);
+        closeModal();
         Swal.fire("Updated!", "Class info has been updated.", "success");
       } else {
         Swal.fire("No Change", "Nothing was updated.", "info");
@@ -115,6 +113,12 @@ const TeacherMyClass = () => {
     } catch (error) {
       Swal.fire("Error", "Update failed.", "error");
     }
+  };
+
+  // Helper to close modal and clear state
+  const closeModal = () => {
+    setEditingClass(null);
+    document.getElementById("update_class_modal")?.close();
   };
 
   if (isLoading) {
@@ -126,7 +130,7 @@ const TeacherMyClass = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto mt-10 mb-10 px-4 py-8">
+    <div className="max-w-6xl mx-auto mt-5 mb-10 px-4 py-8">
       <h2 className="text-3xl font-bold text-center text-indigo-700 mb-2">
         My Classes
       </h2>
@@ -147,13 +151,9 @@ const TeacherMyClass = () => {
             key={cls._id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={{
-              scale: 1.05,
-              rotateX: 4,
-              rotateY: -4,
-            }}
+            whileHover={{ scale: 1.05, rotateX: 4, rotateY: -4 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-white rounded-2xl shadow-lg p-4 border border-gray-200 flex flex-col justify-between h-[420px]"
+            className="bg-white rounded-2xl shadow-lg p-4 border border-gray-200 flex flex-col justify-between h-[550px]"
           >
             <div>
               <img
@@ -178,7 +178,8 @@ const TeacherMyClass = () => {
                 </span>
               </div>
             </div>
-            <div className="mt-4 flex justify-between items-center gap-3">
+
+            <div className="mt-2 flex justify-between items-center gap-3">
               <button
                 className="btn btn-sm btn-accent"
                 onClick={() => {
@@ -189,16 +190,20 @@ const TeacherMyClass = () => {
                     description: cls.description,
                     image: cls.image,
                   });
+                  // open modal
+                  document.getElementById("update_class_modal")?.showModal();
                 }}
               >
                 <FaEdit className="mr-1" /> Update
               </button>
+
               <button
                 className="btn btn-sm btn-error"
                 onClick={() => handleDelete(cls._id)}
               >
                 <FaTrash className="mr-1" /> Delete
               </button>
+
               <button
                 className="btn btn-sm btn-primary"
                 onClick={() =>
@@ -213,54 +218,59 @@ const TeacherMyClass = () => {
         ))}
       </div>
 
-      {/* Modal */}
-      {editingClass && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-xl max-w-md w-full relative">
-            <h2 className="text-center text-xl font-bold mb-4">Update Class</h2>
-            <label className="block mb-2 font-medium">Title</label>
-            <input
-              type="text"
-              name="title"
-              value={editData.title}
-              onChange={handleChange}
-              className="input input-bordered w-full mb-4"
-            />
+      {/* DaisyUI Modal for Update */}
+      <dialog
+        id="update_class_modal"
+        className="modal modal-bottom sm:modal-middle"
+      >
+        <form
+          method="dialog"
+          className="modal-box"
+          onSubmit={handleSaveChanges}
+        >
+          <h2 className="text-center text-xl font-bold mb-4">Update Class</h2>
 
-            <label className="block mb-2 font-medium">Price</label>
-            <input
-              type="number"
-              name="price"
-              value={editData.price}
-              onChange={handleChange}
-              className="input input-bordered w-full mb-4"
-            />
+          <label className="block mb-2 font-medium">Title</label>
+          <input
+            type="text"
+            name="title"
+            value={editData.title || ""}
+            onChange={handleChange}
+            className="input input-bordered w-full mb-4"
+            required
+          />
 
-            <label className="block mb-2 font-medium">Description</label>
-            <textarea
-              name="description"
-              value={editData.description}
-              onChange={handleChange}
-              className="textarea textarea-bordered w-full mb-4"
-            />
+          <label className="block mb-2 font-medium">Price</label>
+          <input
+            type="number"
+            name="price"
+            value={editData.price || ""}
+            onChange={handleChange}
+            className="input input-bordered w-full mb-4"
+            required
+            min={0}
+          />
 
-            <div className="flex justify-end gap-3">
-              <button
-                className="btn btn-sm"
-                onClick={() => setEditingClass(null)}
-              >
-                Cancel
-              </button>
-              <button
-                className="btn btn-sm btn-success"
-                onClick={handleSaveChanges}
-              >
-                Save Changes
-              </button>
-            </div>
+          <label className="block mb-2 font-medium">Description</label>
+          <textarea
+            name="description"
+            value={editData.description || ""}
+            onChange={handleChange}
+            className="textarea textarea-bordered w-full mb-4"
+            required
+            rows={4}
+          />
+
+          <div className="modal-action justify-end gap-3">
+            <button type="button" className="btn btn-sm" onClick={closeModal}>
+              Cancel
+            </button>
+            <button type="submit" className="btn btn-sm btn-success">
+              Save Changes
+            </button>
           </div>
-        </div>
-      )}
+        </form>
+      </dialog>
     </div>
   );
 };

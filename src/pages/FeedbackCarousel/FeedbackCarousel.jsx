@@ -60,7 +60,7 @@ const FeedbackCarousel = () => {
       >
         {feedbacks.map((fb) => (
           <SwiperSlide key={fb._id}>
-            <div className="h-[300px] w-full bg-base-200 rounded-xl shadow-xl p-5 flex flex-col justify-between border border-indigo-100 hover:shadow-xl transition duration-300">
+            <div className="h-[300px] w-full bg-gray-200 rounded-xl shadow-xl p-5 flex flex-col justify-between border border-indigo-100 hover:shadow-xl transition duration-300">
               <div>
                 <FaQuoteLeft className="text-indigo-500 text-3xl mb-3" />
                 <p className="text-gray-700 text-sm italic line-clamp-5">
