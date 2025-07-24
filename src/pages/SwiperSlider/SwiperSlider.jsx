@@ -113,7 +113,7 @@ const SlideContent = ({ bg, title, description, button }) => (
         <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold">{title}</h1>
         <p className="mt-4 text-sm md:text-base lg:text-lg">{description}</p>
         <Link
-          to="/roomPage"
+          to="/allClasses"
           className="btn mt-6 bg-white text-black font-semibold py-2 px-4 rounded hover:bg-gray-200 transition"
         >
           {button}
