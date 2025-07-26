@@ -18,7 +18,7 @@ const TeacherClassDetails = () => {
     deadline: "",
   });
 
-  // ✅ Fetch Class Info
+  //  Fetch Class Info
   const { data: classInfo } = useQuery({
     queryKey: ["classInfo", id],
     queryFn: async () => {
@@ -27,7 +27,7 @@ const TeacherClassDetails = () => {
     },
   });
 
-  // ✅ Fetch Assignments
+  //  Fetch Assignments
   const { data: assignments = [] } = useQuery({
     queryKey: ["assignments", id],
     queryFn: async () => {
@@ -36,7 +36,7 @@ const TeacherClassDetails = () => {
     },
   });
 
-  // ✅ Fetch Submissions Count for each assignment
+  //  Fetch Submissions Count for each assignment
   const [submissionsMap, setSubmissionsMap] = useState({});
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const TeacherClassDetails = () => {
     0
   );
 
-  // ✅ Mutation to Create Assignment
+  //  Mutation to Create Assignment
   const { mutate: createAssignment } = useMutation({
     mutationFn: async (assignmentData) => {
       const res = await axiosSecure.post("/assignments", assignmentData);
@@ -79,7 +79,7 @@ const TeacherClassDetails = () => {
     },
   });
 
-  // ✅ Submit Handler
+  //  Submit Handler
   const handleCreateAssignment = (e) => {
     e.preventDefault();
     const assignmentData = {

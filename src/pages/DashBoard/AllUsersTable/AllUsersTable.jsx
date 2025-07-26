@@ -133,7 +133,7 @@ const AllUsersTable = () => {
         )}
       </div>
 
-      {/* ✅ Pagination Footer */}
+      {/*  Pagination Footer */}
       {totalPages > 1 && (
         <div className="flex justify-center mt-6">
           <div className="join">

@@ -2,10 +2,10 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules"; // ✅ Removed Navigation
+import { Pagination, Autoplay } from "swiper/modules"; //  Removed Navigation
 import { FaUserGraduate, FaEnvelope, FaUsers } from "react-icons/fa";
 import "swiper/css";
-// import "swiper/css/navigation"; // ✅ Removed
+// import "swiper/css/navigation"; //  Removed
 import "swiper/css/pagination";
 
 const PopularClasses = () => {
@@ -56,7 +56,7 @@ const PopularClasses = () => {
         }}
         autoplay={{ delay: 3000 }}
         pagination={{ clickable: true }}
-        modules={[Pagination, Autoplay]} // ✅ Removed Navigation module
+        modules={[Pagination, Autoplay]} //  Removed Navigation module
         className="mySwiper"
       >
         {popularClasses.map((cls) => (
