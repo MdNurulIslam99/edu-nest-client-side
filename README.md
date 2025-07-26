@@ -2,7 +2,7 @@
 
 EduNest is a modern online learning platform designed to connect students, teachers, and admins in a single ecosystem. Built using the MERN Stack (MongoDB, Express.js, React.js, Node.js), EduNest supports class management, student enrollment, teacher requests, assignments, feedback, and a role-based dashboard system – all with a clean, responsive UI.
 
-📍 **Live Site**: [PrimeLodgeBookify Live Link](https://edunest-3378e.web.app/)
+📍 **Live Site**: [EduNest Live Link](https://edunest-3378e.web.app/)
 
 ---
 

@@ -2,10 +2,9 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules"; //  Removed Navigation
+import { Pagination, Autoplay } from "swiper/modules";
 import { FaUserGraduate, FaEnvelope, FaUsers } from "react-icons/fa";
 import "swiper/css";
-// import "swiper/css/navigation"; //  Removed
 import "swiper/css/pagination";
 
 const PopularClasses = () => {
@@ -19,9 +18,7 @@ const PopularClasses = () => {
     queryKey: ["popularClasses"],
     queryFn: async () => {
       const res = await axiosSecure.get("/popular-classes");
-      return res.data
-        .sort((a, b) => (b.enrolled || 0) - (a.enrolled || 0))
-        .slice(0, 6);
+      return res.data; // ✅ CHANGED: sorting is now handled in backend
     },
   });
 
@@ -34,18 +31,20 @@ const PopularClasses = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      {/* ✅ SECTION TITLE */}
       <div>
         <h2 className="text-3xl font-bold text-center mb-4 text-indigo-700">
           Most Popular Classes
         </h2>
 
         <p className="text-center max-w-6xl mx-auto text-gray-600 mb-10">
-          Discover our most sought-after classes, handpicked based on student
-          enrollment. These top-rated courses are engaging, in demand, and led
-          by our best instructors. Join now and elevate your learning journey!
+          Discover our most sought-after classes, ranked by the highest student
+          enrollments. The most enrolled course appears first, followed by the
+          rest in order.
         </p>
       </div>
 
+      {/* ✅ SWIPER CAROUSEL */}
       <Swiper
         slidesPerView={1}
         spaceBetween={20}
@@ -56,7 +55,7 @@ const PopularClasses = () => {
         }}
         autoplay={{ delay: 3000 }}
         pagination={{ clickable: true }}
-        modules={[Pagination, Autoplay]} //  Removed Navigation module
+        modules={[Pagination, Autoplay]}
         className="mySwiper"
       >
         {popularClasses.map((cls) => (
@@ -86,6 +85,8 @@ const PopularClasses = () => {
                     </p>
                   </div>
                 </div>
+
+                {/* ✅ SHOWING ENROLLMENT COUNT */}
                 <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-indigo-600">
                   <FaUsers /> Enrolled: {cls.totalEnrollment || 0}
                 </div>
