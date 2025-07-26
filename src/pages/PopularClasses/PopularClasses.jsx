@@ -18,7 +18,7 @@ const PopularClasses = () => {
     queryKey: ["popularClasses"],
     queryFn: async () => {
       const res = await axiosSecure.get("/popular-classes");
-      return res.data; // ✅ CHANGED: sorting is now handled in backend
+      return res.data; //  CHANGED: sorting is now handled in backend
     },
   });
 
@@ -31,20 +31,20 @@ const PopularClasses = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* ✅ SECTION TITLE */}
+      {/*  SECTION TITLE */}
       <div>
         <h2 className="text-3xl font-bold text-center mb-4 text-indigo-700">
           Most Popular Classes
         </h2>
 
-        <p className="text-center max-w-6xl mx-auto text-gray-600 mb-10">
+        <p className="text-center max-w-4xl mx-auto text-gray-600 mb-10">
           Discover our most sought-after classes, ranked by the highest student
           enrollments. The most enrolled course appears first, followed by the
           rest in order.
         </p>
       </div>
 
-      {/* ✅ SWIPER CAROUSEL */}
+      {/*  SWIPER CAROUSEL */}
       <Swiper
         slidesPerView={1}
         spaceBetween={20}
@@ -86,7 +86,7 @@ const PopularClasses = () => {
                   </div>
                 </div>
 
-                {/* ✅ SHOWING ENROLLMENT COUNT */}
+                {/*  SHOWING ENROLLMENT COUNT */}
                 <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-indigo-600">
                   <FaUsers /> Enrolled: {cls.totalEnrollment || 0}
                 </div>
