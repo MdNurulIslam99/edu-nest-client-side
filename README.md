@@ -166,3 +166,11 @@ tailwindcss + daisyui
 🟡 Client Repository: https://github.com/MdNurulIslam99/prime-lodge-bookify-client-side
 
 🔵 Server Repository: https://github.com/Programming-Hero-Web-Course4/b11a12-server-side-MdNurulIslam99
+
+#### 🌟 What Makes EduNest Stand Out?
+
+✅ All-in-one solution for students, teachers, and admins
+✅ Stripe-powered payments for course enrollment
+✅ Full CRUD functionality for courses, assignments, and feedback
+✅ Role-based access system for secure management
+✅ Clean and modern UI with smooth animations and responsive design
