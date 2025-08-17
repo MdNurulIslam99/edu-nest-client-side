@@ -165,7 +165,7 @@ tailwindcss + daisyui
 
 🟡 Client Repository: https://github.com/MdNurulIslam99/edu-nest-client-side
 
-🔵 Server Repository: https://github.com/Programming-Hero-Web-Course4/b11a12-server-side-MdNurulIslam99
+🔵 Server Repository: https://github.com/MdNurulIslam99/eduNest-server-side
 
 #### 🌟 What Makes EduNest Stand Out?
 
