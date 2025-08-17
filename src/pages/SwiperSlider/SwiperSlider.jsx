@@ -105,7 +105,7 @@ const SwiperSlider = () => {
 //  Reusable SlideContent component
 const SlideContent = ({ bg, title, description, button }) => (
   <div
-    className="w-full h-full bg-cover bg-center rounded-lg text-white"
+    className="w-full h-full bg-cover bg-center rounded-lg text-white border"
     style={{ backgroundImage: `url(${bg})` }}
   >
     <div className="flex h-full items-center justify-start p-8 md:p-16">

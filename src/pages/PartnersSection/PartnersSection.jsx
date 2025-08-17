@@ -24,7 +24,7 @@ const PartnersSection = () => {
   }
 
   return (
-    <div className="my-10 px-4 max-w-7xl mx-auto">
+    <div className="w-11/12 mx-auto px-5">
       {/* ----------- Section 1: Trusted Partners ----------- */}
       {/* <div className="bg-gray-200 py-10 px-5 rounded-lg shadow-2xl mb-16">
         <h2 className="text-3xl font-bold text-center mb-6">
@@ -71,7 +71,7 @@ const PartnersSection = () => {
         <h2 className="text-3xl font-bold text-center mb-6">
           Our Trusted Partners
         </h2>
-        <p className="text-center mb-12 max-w-3xl mx-auto text-gray-600">
+        <p className="text-center xl:text-xl mb-12 max-w-3xl xl:max-w-4xl mx-auto text-gray-600">
           EduNest collaborates with industry leaders and educational pioneers to
           deliver world-class learning experiences.
         </p>

@@ -30,14 +30,14 @@ const PopularClasses = () => {
     );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="w-11/12 mx-auto px-5 py-8">
       {/*  SECTION TITLE */}
       <div>
         <h2 className="text-3xl font-bold text-center mb-4 text-indigo-700">
           Most Popular Classes
         </h2>
 
-        <p className="text-center max-w-4xl mx-auto text-gray-600 mb-10">
+        <p className="text-center max-w-4xl xl:max-w-5xl xl:text-xl mx-auto text-gray-600 mb-10">
           Discover our most sought-after classes, ranked by the highest student
           enrollments. The most enrolled course appears first, followed by the
           rest in order.
@@ -60,21 +60,21 @@ const PopularClasses = () => {
       >
         {popularClasses.map((cls) => (
           <SwiperSlide key={cls._id} className="h-full">
-            <div className="w-full h-[480px] flex flex-col bg-white shadow-lg rounded-xl overflow-hidden border border-indigo-100 transition-transform duration-300 hover:scale-105">
+            <div className="w-full h-[490px] flex flex-col bg-white shadow-lg rounded-xl overflow-hidden border border-indigo-100 transition-transform duration-300 hover:scale-105">
               <img
                 src={cls.image}
                 alt={cls.title}
                 className="w-full h-56 object-cover"
               />
-              <div className="flex flex-col justify-between flex-grow p-4">
+              <div className="flex flex-col justify-between flex-grow p-6">
                 <div className="space-y-2">
                   <h3 className="text-lg font-semibold text-indigo-700">
                     {cls.title}
                   </h3>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-gray-600 text-sm ">
                     {cls.description?.slice(0, 80)}...
                   </p>
-                  <div className="text-sm text-gray-500 space-y-1 mt-2">
+                  <div className="text-sm xl:text-base text-gray-500 space-y-1 mt-2">
                     <p className="flex items-center gap-2">
                       <FaUserGraduate className="text-indigo-500" />
                       {cls.instructorName}
@@ -87,7 +87,7 @@ const PopularClasses = () => {
                 </div>
 
                 {/*  SHOWING ENROLLMENT COUNT */}
-                <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-indigo-600">
+                <div className="mt-3 flex items-center gap-2 text-sm xl:text-base font-semibold text-indigo-600">
                   <FaUsers /> Enrolled: {cls.totalEnrollment || 0}
                 </div>
               </div>

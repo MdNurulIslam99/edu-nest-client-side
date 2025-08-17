@@ -31,13 +31,13 @@ const FeedbackCarousel = () => {
     );
 
   return (
-    <div className="max-w-7xl mx-auto py-10 px-4">
+    <div className="w-11/12 mx-auto py-10 px-5">
       {/* Section Header */}
       <div>
         <h2 className="text-3xl font-bold text-center text-indigo-700 mb-3">
           What Students Say About Our Teachers
         </h2>
-        <p className="text-center text-gray-600 mb-10 max-w-3xl mx-auto">
+        <p className="text-center xl:text-lg text-gray-600 mb-10 max-w-3xl xl:max-w-5xl mx-auto">
           Discover how our dedicated instructors are impacting student journeys
           through engaging lessons and mentorship. Here's what learners have to
           say.
@@ -63,7 +63,7 @@ const FeedbackCarousel = () => {
             <div className="h-[300px] w-full bg-gray-200 rounded-xl shadow-xl p-5 flex flex-col justify-between border border-indigo-100 hover:shadow-xl transition duration-300">
               <div>
                 <FaQuoteLeft className="text-indigo-500 text-3xl mb-3" />
-                <p className="text-gray-700 text-sm italic line-clamp-5">
+                <p className="text-gray-700 text-sm xl:text-base italic line-clamp-5">
                   {fb.description}
                 </p>
               </div>
@@ -75,10 +75,12 @@ const FeedbackCarousel = () => {
                   className="w-12 h-12 rounded-full border"
                 />
                 <div>
-                  <p className="font-medium text-indigo-700 text-sm">
+                  <p className="font-medium text-indigo-700 text-sm xl:text-base">
                     {fb.studentEmail}
                   </p>
-                  <p className="text-gray-500 text-xs">{fb.classTitle}</p>
+                  <p className="text-gray-500 text-xs xl:text-sm">
+                    {fb.classTitle}
+                  </p>
                 </div>
               </div>
             </div>
