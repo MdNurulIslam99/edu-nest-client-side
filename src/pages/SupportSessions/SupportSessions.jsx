@@ -24,12 +24,12 @@ const supportSessions = [
 
 const SupportSessions = () => {
   return (
-    <div className="py-20 rounded-2xl mt-20 mb-20 shadow-xl bg-gradient-to-r from-indigo-50 to-blue-100">
-      <div className="max-w-6xl mx-auto px-4 text-center">
+    <div className="w-11/12 mx-auto px-5 py-13 rounded-2xl mt-20 shadow-xl bg-gradient-to-r from-indigo-50 to-blue-100">
+      <div className=" px-4 text-center">
         <h2 className="text-4xl font-bold text-indigo-700 mb-4">
           Daily Support Sessions
         </h2>
-        <p className="text-gray-600 mb-10 text-lg max-w-2xl mx-auto">
+        <p className="text-gray-600 mb-10 text-lg max-w-2xl xl:max-w-4xl mx-auto">
           Join our live support sessions 3 times a day — guided by expert
           mentors to solve doubts, review assignments, and grow your skills.
         </p>

@@ -4,11 +4,11 @@ import { Link } from "react-router";
 
 const BecomeTeacher = () => {
   return (
-    <div className="bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-16 mt-20 mb-10 px-4 shadow-2xl rounded-xl">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <div className="bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-10 w-11/12 mx-auto px-5   shadow-2xl rounded-xl">
+      <div className="w-11/12 mx-auto grid md:grid-cols-2 gap-5 items-center">
         {/* Left Content */}
         <div>
-          <h2 className="text-4xl font-extrabold text-indigo-700 mb-4">
+          <h2 className="text-4xl font-bold text-indigo-700 mb-4">
             Become an Inspiring Teacher at EduNest
           </h2>
           <p className="text-gray-700 mb-6 text-lg">
@@ -66,7 +66,7 @@ const BecomeTeacher = () => {
           <img
             src="https://i.ibb.co/cKDT5HZC/teacher.png"
             alt="Become a teacher"
-            className="w-full max-w-md mx-auto rounded-xl shadow-xl"
+            className="w-full max-w-lg mx-auto rounded-xl shadow-xl"
           />
         </div>
       </div>

@@ -31,7 +31,7 @@ const FeedbackCarousel = () => {
     );
 
   return (
-    <div className="w-11/12 mx-auto py-10 px-5">
+    <div className="w-11/12 mx-auto py-10">
       {/* Section Header */}
       <div>
         <h2 className="text-3xl font-bold text-center text-indigo-700 mb-3">

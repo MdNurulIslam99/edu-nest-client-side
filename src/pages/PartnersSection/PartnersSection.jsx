@@ -24,7 +24,7 @@ const PartnersSection = () => {
   }
 
   return (
-    <div className="w-11/12 mx-auto px-5">
+    <div className="w-11/12 mx-auto">
       {/* ----------- Section 1: Trusted Partners ----------- */}
       {/* <div className="bg-gray-200 py-10 px-5 rounded-lg shadow-2xl mb-16">
         <h2 className="text-3xl font-bold text-center mb-6">
@@ -68,7 +68,7 @@ const PartnersSection = () => {
 
       {/* ----------- Section 2: Clients Using Our Services ----------- */}
       <div className="bg-gray-200 mb-16 py-10 px-5 rounded-lg shadow-2xl">
-        <h2 className="text-3xl font-bold text-center mb-6">
+        <h2 className="text-3xl text-indigo-700 font-bold text-center mb-6">
           Our Trusted Partners
         </h2>
         <p className="text-center xl:text-xl mb-12 max-w-3xl xl:max-w-4xl mx-auto text-gray-600">

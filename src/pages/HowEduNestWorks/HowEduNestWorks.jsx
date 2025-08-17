@@ -7,8 +7,8 @@ import {
 
 const HowEduNestWorks = () => {
   return (
-    <div className="py-16 mt-20 mb-16 bg-gradient-to-b from-indigo-50 to-white rounded-xl shadow-2xl">
-      <div className="max-w-6xl mx-auto px-4 text-center">
+    <div className="w-11/12 mx-auto px-5 py-16 mt-20 mb-16 bg-gradient-to-b from-indigo-50 to-white rounded-xl shadow-2xl">
+      <div className="px-5 text-center">
         <h2 className="text-4xl font-bold text-indigo-700 mb-12">
           How EduNest Works
         </h2>

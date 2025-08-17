@@ -53,7 +53,7 @@ const TeacherRequestForm = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto my-10 p-6 bg-base-200 shadow-lg mt-28 mb-10 rounded-lg">
+    <div className="w-11/12 mx-auto my-10 p-6 bg-base-200 shadow-lg mt-28 mb-10 rounded-lg">
       {/* <Helmet>EduNest | TeacherRequestForm</Helmet> */}
       <h2 className="text-3xl font-bold mb-6 text-center">Become a Teacher</h2>
 

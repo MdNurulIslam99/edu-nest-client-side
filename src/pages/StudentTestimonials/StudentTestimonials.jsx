@@ -38,8 +38,8 @@ const StudentTestimonials = () => {
   };
 
   return (
-    <div className="py-16 bg-gray-100 mt-20 mb-16 rounded-xl shadow-lg">
-      <div className="max-w-6xl mx-auto px-4 text-center">
+    <div className="py-16 w-11/12 mx-auto px-5 bg-gray-100 mt-20 mb-16 rounded-xl shadow-lg">
+      <div className=" px-4 text-center">
         <h2 className="text-4xl font-bold text-indigo-600 mb-10">
           All Categories
         </h2>

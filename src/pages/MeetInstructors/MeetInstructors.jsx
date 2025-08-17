@@ -23,8 +23,8 @@ const instructors = [
 
 const MeetInstructors = () => {
   return (
-    <div className="py-16 bg-indigo-50  shadow-2xl rounded-xl">
-      <div className="max-w-6xl mx-auto px-4 text-center">
+    <div className="py-16 bg-indigo-50  shadow-2xl rounded-xl w-11/12 mx-auto px-5">
+      <div className=" px-5 text-center">
         <h2 className="text-4xl font-bold text-indigo-700 mb-10">
           Meet Our Instructors
         </h2>

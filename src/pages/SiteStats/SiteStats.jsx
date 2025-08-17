@@ -23,13 +23,13 @@ const SiteStats = () => {
     return <p className="text-center text-red-500">Failed to load stats.</p>;
 
   return (
-    <div className="max-w-7xl mx-auto py-5 px-4 md:px-6 lg:px-8">
+    <div className="w-11/12 mx-auto py-5 px-5  rounded-lg bg-gradient-to-br from-indigo-100 via-white to-purple-100">
       {/* Title & Description */}
       <div className="text-center mb-12">
         <h2 className="text-4xl font-extrabold text-indigo-700 mb-4">
           EduNest Platform Growth
         </h2>
-        <p className="text-gray-600 max-w-5xl mx-auto text-lg">
+        <p className="text-gray-600 max-w-5xl xl:max-w-6xl mx-auto text-lg">
           Join thousands of learners and educators who are building a brighter
           future through EduNest. Here’s how far we’ve come and continue to grow
           every day!
@@ -37,7 +37,7 @@ const SiteStats = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col-reverse md:flex-row items-center gap-12">
+      <div className="flex flex-col-reverse md:flex-row items-center gap-10">
         {/* Left: Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {/* Total Users */}

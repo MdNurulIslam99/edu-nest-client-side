@@ -58,14 +58,14 @@ const AllClasses = () => {
   }
 
   return (
-    <div className="max-w-7xl mt-16 mb-10 mx-auto px-4 py-12">
+    <div className="w-11/12  mt-16 mb-10 mx-auto  py-12">
       {/* <Helmet>
         <title>EduNest | AllClasses</title>
       </Helmet> */}
       {/* Title Section */}
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-indigo-700">EduNest Courses</h2>
-        <p className="mt-3 text-gray-600 max-w-4xl mx-auto">
+        <p className="mt-3 text-gray-600 max-w-4xl xl:max-w-6xl mx-auto">
           Welcome to EduNest - Smart Education System. Explore and enroll in
           interactive, industry-relevant courses taught by professional
           educators. Start learning today!
@@ -77,7 +77,7 @@ const AllClasses = () => {
         {currentClasses.map((cls) => (
           <div
             key={cls._id}
-            className="mt-10 card bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 hover:shadow-2xl transition duration-300"
+            className="mt-5 card w-full h-[480px] md:h-[550px] lg:h-[500px]  bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 hover:shadow-2xl transition duration-300"
           >
             <figure className="h-48 w-full overflow-hidden">
               <img
@@ -87,9 +87,9 @@ const AllClasses = () => {
               />
             </figure>
 
-            <div className="card-body flex flex-col justify-between h-64">
+            <div className="card-body flex flex-col justify-between h-72">
               <div>
-                <h2 className="text-xl font-bold text-indigo-700">
+                <h2 className="text-base md:text-lg lg:text-xl font-bold text-indigo-700">
                   {cls.title}
                 </h2>
                 <p className="text-sm text-gray-500 mt-1 flex items-center">
@@ -104,7 +104,7 @@ const AllClasses = () => {
                 </p>
               </div>
 
-              <div className="mt-4">
+              <div className="mt-2">
                 <div className="flex items-center justify-between text-sm text-gray-600">
                   <span className="flex items-center">
                     <FaMoneyBillWave className="mr-1 text-green-500" /> $
@@ -118,7 +118,7 @@ const AllClasses = () => {
 
                 <button
                   onClick={() => handleEnroll(cls._id)}
-                  className="btn btn-sm btn-primary mt-4 w-full"
+                  className="btn btn-sm btn-primary mt-2 w-full"
                 >
                   Enroll Now
                 </button>

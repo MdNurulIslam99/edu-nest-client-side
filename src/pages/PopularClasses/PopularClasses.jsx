@@ -18,7 +18,7 @@ const PopularClasses = () => {
     queryKey: ["popularClasses"],
     queryFn: async () => {
       const res = await axiosSecure.get("/popular-classes");
-      return res.data; //  CHANGED: sorting is now handled in backend
+      return res.data; //   sorting is now handled in backend
     },
   });
 
@@ -30,7 +30,7 @@ const PopularClasses = () => {
     );
 
   return (
-    <div className="w-11/12 mx-auto px-5 py-8">
+    <div className="w-11/12 mx-auto py-8">
       {/*  SECTION TITLE */}
       <div>
         <h2 className="text-3xl font-bold text-center mb-4 text-indigo-700">
@@ -60,13 +60,13 @@ const PopularClasses = () => {
       >
         {popularClasses.map((cls) => (
           <SwiperSlide key={cls._id} className="h-full">
-            <div className="w-full h-[490px] flex flex-col bg-white shadow-lg rounded-xl overflow-hidden border border-indigo-100 transition-transform duration-300 hover:scale-105">
+            <div className="w-full h-[490px] gap-5 flex flex-col bg-white shadow-lg rounded-xl overflow-hidden border border-indigo-100 transition-transform duration-300 hover:scale-105">
               <img
                 src={cls.image}
                 alt={cls.title}
                 className="w-full h-56 object-cover"
               />
-              <div className="flex flex-col justify-between flex-grow p-6">
+              <div className="flex flex-col  justify-between flex-grow p-6">
                 <div className="space-y-2">
                   <h3 className="text-lg font-semibold text-indigo-700">
                     {cls.title}
