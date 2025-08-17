@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import { FaUserGraduate, FaMoneyBillWave, FaBookOpen } from "react-icons/fa";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useNavigate } from "react-router";
-// import { Helmet } from "react-helmet-async";
 
 const AllClasses = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortOrder, setSortOrder] = useState(""); //  state for sorting
   const classesPerPage = 10;
 
   useEffect(() => {
@@ -29,13 +29,20 @@ const AllClasses = () => {
     },
   });
 
+  //  sort classes based on selected order
+  const sortedClasses = [...allClasses].sort((a, b) => {
+    if (sortOrder === "asc") return a.price - b.price;
+    if (sortOrder === "desc") return b.price - a.price;
+    return 0;
+  });
+
   // Pagination calculations
-  const totalClasses = allClasses.length;
+  const totalClasses = sortedClasses.length; //  use sortedClasses
   const totalPages = Math.ceil(totalClasses / classesPerPage);
 
   const indexOfLast = currentPage * classesPerPage;
   const indexOfFirst = indexOfLast - classesPerPage;
-  const currentClasses = allClasses.slice(indexOfFirst, indexOfLast);
+  const currentClasses = sortedClasses.slice(indexOfFirst, indexOfLast);
 
   const handleEnroll = (id) => {
     navigate(`/allClassDetails/${id}`);
@@ -59,9 +66,6 @@ const AllClasses = () => {
 
   return (
     <div className="w-11/12  mt-16 mb-10 mx-auto  py-12">
-      {/* <Helmet>
-        <title>EduNest | AllClasses</title>
-      </Helmet> */}
       {/* Title Section */}
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-indigo-700">EduNest Courses</h2>
@@ -70,6 +74,22 @@ const AllClasses = () => {
           interactive, industry-relevant courses taught by professional
           educators. Start learning today!
         </p>
+      </div>
+
+      {/*  Sorting Dropdown */}
+      <div className="flex justify-start mb-6">
+        <select
+          className="border border-gray-300 rounded-md px-4 py-2 text-gray-700 focus:ring focus:ring-indigo-300"
+          value={sortOrder}
+          onChange={(e) => {
+            setSortOrder(e.target.value);
+            setCurrentPage(1); // reset to first page after sorting
+          }}
+        >
+          <option value="">Sort by</option>
+          <option value="asc">Price: Low to High</option>
+          <option value="desc">Price: High to Low</option>
+        </select>
       </div>
 
       {/* Class Cards */}

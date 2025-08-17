@@ -30,15 +30,19 @@ import Forbidden from "../pages/Forbidden/Forbidden";
 import AdminRoute from "../routes/AdminRoute";
 import TeacherRoute from "../routes/TeacherRoute";
 import DashBoardHome from "../pages/DashBoard/DashBoardHome/DashBoardHome";
+import HelpCenter from "../pages/HelpCenter/HelpCenter";
+import ErrorCard from "../pages/ErrorCard/ErrorCard";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayouts></RootLayouts>,
+    errorElement: <ErrorCard></ErrorCard>,
     children: [
       {
         index: true,
         element: <Home></Home>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/teacherRequestForm",
@@ -47,6 +51,7 @@ const router = createBrowserRouter([
             <TeacherRequestForm></TeacherRequestForm>
           </PrivateRoute>
         ),
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/allClassDetails/:id",
@@ -55,6 +60,7 @@ const router = createBrowserRouter([
             <AllClassDetails></AllClassDetails>
           </PrivateRoute>
         ),
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/coursePayment/:id",
@@ -63,54 +69,72 @@ const router = createBrowserRouter([
             <CoursePayment></CoursePayment>
           </PrivateRoute>
         ),
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/allClasses",
         element: <AllClasses></AllClasses>,
+        errorElement: <ErrorCard></ErrorCard>,
+      },
+      {
+        path: "/helpCenter",
+        element: <HelpCenter></HelpCenter>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/termsCondition",
         element: <TermsConditions></TermsConditions>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/brandingSection",
         element: <BrandingSection></BrandingSection>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/design",
         element: <Design></Design>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/marketing",
         element: <MarketingSection></MarketingSection>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/advertisement",
         element: <AdvertisementSection></AdvertisementSection>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/privacyPolicy",
         element: <PrivacyPolicy></PrivacyPolicy>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/contact",
         element: <ContactUs></ContactUs>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/faqSection",
         element: <FaqSection></FaqSection>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/signin",
         element: <SignIn></SignIn>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/signup",
         element: <SignUp></SignUp>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "/forbidden",
         element: <Forbidden></Forbidden>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
     ],
   },
@@ -121,15 +145,18 @@ const router = createBrowserRouter([
         <DashBoardLayout></DashBoardLayout>,
       </PrivateRoute>
     ),
+    errorElement: <ErrorCard></ErrorCard>,
 
     children: [
       {
         index: true,
         element: <DashBoardHome></DashBoardHome>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "addClass",
         element: <AddClass></AddClass>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
 
       {
@@ -139,6 +166,7 @@ const router = createBrowserRouter([
             <AdminAllClasses></AdminAllClasses>,
           </AdminRoute>
         ),
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "allUsersTable",
@@ -147,10 +175,12 @@ const router = createBrowserRouter([
             <AllUsersTable></AllUsersTable>,
           </AdminRoute>
         ),
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "myProfile",
         element: <MyProfile></MyProfile>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "teacherRequest",
@@ -159,6 +189,7 @@ const router = createBrowserRouter([
             <TeacherRequest></TeacherRequest>
           </AdminRoute>
         ),
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "teacherMyClass",
@@ -167,6 +198,7 @@ const router = createBrowserRouter([
             <TeacherMyClass></TeacherMyClass>
           </TeacherRoute>
         ),
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "teacherClassDetails/:id",
@@ -175,14 +207,17 @@ const router = createBrowserRouter([
             <TeacherClassDetails></TeacherClassDetails>
           </TeacherRoute>
         ),
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "myEnrollClass",
         element: <MyEnrollClass></MyEnrollClass>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
       {
         path: "myEnrollClassDetails/:id",
         element: <MyEnrollClassDetails></MyEnrollClassDetails>,
+        errorElement: <ErrorCard></ErrorCard>,
       },
     ],
   },

@@ -63,6 +63,34 @@ const NavBar = () => {
           Teach on EduNest
         </NavLink>
       </li>
+      {user && (
+        <>
+          <li>
+            <NavLink
+              to="/dashBoard"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-neutral-950 text-base md:text-lg font-bold"
+                  : "text-white text-base md:text-lg font-bold"
+              }
+            >
+              Dashboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/helpCenter"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-neutral-950 text-base md:text-lg font-bold"
+                  : "text-white text-base md:text-lg font-bold"
+              }
+            >
+              HelpCenter
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
