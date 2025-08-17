@@ -93,7 +93,7 @@ const TeacherClassDetails = () => {
   };
 
   return (
-    <div className="max-w-6xl mt-16 mb-10 mx-auto p-4 space-y-10">
+    <div className="w-11/12 mt-16 mb-10 mx-auto p-4 space-y-10">
       <div>
         {" "}
         <h2 className="text-3xl  font-bold text-center text-primary mb-4">

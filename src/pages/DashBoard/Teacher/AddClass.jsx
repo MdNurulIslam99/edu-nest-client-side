@@ -56,9 +56,9 @@ const AddClass = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-6 bg-white rounded-lg shadow-md mt-6">
+    <div className="w-11/12 mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-violet-600">
+        <h2 className="text-3xl font-bold text-indigo-700">
           Create a New Course
         </h2>
         <p className="text-gray-600 mt-2 max-w-xl mx-auto text-base">

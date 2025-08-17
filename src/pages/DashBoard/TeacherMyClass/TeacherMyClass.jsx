@@ -130,16 +130,16 @@ const TeacherMyClass = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto mt-5 mb-10 px-4 py-8">
+    <div className="w-11/12 mx-auto mt-5 mb-10 px-4 py-8">
       <h2 className="text-3xl font-bold text-center text-indigo-700 mb-2">
         My Classes
       </h2>
-      <p className="text-center text-gray-600 mt-5 mb-8">
+      <p className="text-center xl:text-base text-gray-600 mt-5 mb-8">
         Manage your courses—view, update, delete, or check status—all in one
         dashboard.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-10">
         {localClasses.length === 0 && (
           <p className="text-center col-span-full text-gray-500">
             No classes found.
@@ -153,7 +153,7 @@ const TeacherMyClass = () => {
             animate={{ opacity: 1, y: 0 }}
             whileHover={{ scale: 1.05, rotateX: 4, rotateY: -4 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-white rounded-2xl shadow-lg p-4 border border-gray-200 flex flex-col justify-between h-[550px]"
+            className="bg-white rounded-2xl shadow-lg p-4 border border-gray-200 flex flex-col justify-between  h-[550px]"
           >
             <div>
               <img
@@ -170,7 +170,9 @@ const TeacherMyClass = () => {
               <p className="text-sm text-gray-600">
                 <strong>Email:</strong> {cls.instructorEmail}
               </p>
-              <p className="text-sm text-gray-600 mt-2">{cls.description}</p>
+              <p className="text-sm text-gray-600 text-justify mt-2">
+                {cls.description}
+              </p>
               <div className="mt-2">
                 <span className="badge badge-info mr-2">${cls.price}</span>
                 <span className="badge badge-outline capitalize">
@@ -179,7 +181,7 @@ const TeacherMyClass = () => {
               </div>
             </div>
 
-            <div className="mt-2 flex justify-between items-center gap-3">
+            <div className="mt-2 flex justify-around items-center gap-3">
               <button
                 className="btn btn-sm btn-accent"
                 onClick={() => {
