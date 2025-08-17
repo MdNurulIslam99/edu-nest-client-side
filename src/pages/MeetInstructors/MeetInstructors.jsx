@@ -28,7 +28,7 @@ const MeetInstructors = () => {
         <h2 className="text-4xl font-bold text-indigo-700 mb-10">
           Meet Our Instructors
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-3  lg:gap-6">
           {instructors.map((ins, i) => (
             <div
               key={i}
