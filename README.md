@@ -159,7 +159,12 @@ tailwindcss + daisyui
 - npm install
 - npm run dev
 
-### 🔗 Useful Links
+### 🔗 Useful Links and AdminUser
+
+### 🖥️ DashBoard Admin User
+
+-  Submit admin email: hacker@gamil.com
+-  Submit Admin password: 123456aA
 
 🔴 Live Site: https://edunest-3378e.web.app/
 
