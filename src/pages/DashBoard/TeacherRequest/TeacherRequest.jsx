@@ -52,7 +52,7 @@ const TeacherRequest = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 bg-base-200 rounded-xl mt-16">
+    <div className="w-11/12 mx-auto px-4 md:px-8 py-12 bg-base-200 rounded-xl mt-16">
       <h2 className="text-3xl font-bold text-indigo-700 text-center mb-4">
         Teacher Requests
       </h2>

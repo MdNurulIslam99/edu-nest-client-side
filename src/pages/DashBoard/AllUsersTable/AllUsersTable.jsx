@@ -67,10 +67,16 @@ const AllUsersTable = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="w-11/12 mx-auto px-4 py-10 mt-16 rounded-lg bg-gray-100">
       <h2 className="text-2xl font-bold text-center mb-6 text-indigo-600">
         All Registered Users
       </h2>
+      <p className="max-w-7xl mx-auto text-center text-gray-600 mb-6">
+        This section displays a complete list of all registered users on the
+        platform, including their essential details such as name, email, and
+        role. Admins can manage user access, monitor activity, and update user
+        information from here.
+      </p>
 
       <div className="overflow-x-auto rounded-lg shadow">
         <table className="table w-full table-zebra text-center">

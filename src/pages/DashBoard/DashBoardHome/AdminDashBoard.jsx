@@ -39,7 +39,7 @@ const AdminDashboardStats = () => {
     );
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-12">
+    <div className="w-11/12 mx-auto px-6 py-12">
       {/* Title and Description */}
       <div className="text-center mb-10">
         <h1 className="text-4xl font-extrabold text-indigo-700 mb-3">
@@ -148,7 +148,7 @@ const AdminDashboardStats = () => {
           </p>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

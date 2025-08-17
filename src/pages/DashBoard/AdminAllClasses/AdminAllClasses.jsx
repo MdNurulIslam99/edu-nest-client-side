@@ -42,7 +42,7 @@ const AdminAllClasses = () => {
   );
 
   return (
-    <div className="max-w-7xl mt-16 rounded-lg shadow-2xl bg-gray-100 mx-auto px-4 py-10">
+    <div className="w-11/12 mt-16 rounded-lg shadow-2xl bg-gray-100 mx-auto px-4 py-10">
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold text-indigo-700">
           All Classes Overview
