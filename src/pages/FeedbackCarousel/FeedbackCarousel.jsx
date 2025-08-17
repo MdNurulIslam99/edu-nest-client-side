@@ -6,6 +6,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { FaQuoteLeft } from "react-icons/fa";
 import "swiper/css";
 import "swiper/css/pagination";
+import Loading from "../shared/Footer/FooterPages/Loading";
 
 const FeedbackCarousel = () => {
   const axiosSecure = useAxiosSecure();
@@ -22,7 +23,12 @@ const FeedbackCarousel = () => {
     },
   });
 
-  if (isLoading) return <p className="text-center">Loading feedback...</p>;
+  if (isLoading)
+    return (
+      <p className="text-center">
+        <Loading></Loading>
+      </p>
+    );
   if (isError)
     return (
       <p className="text-center text-red-500">
@@ -37,7 +43,7 @@ const FeedbackCarousel = () => {
         <h2 className="text-3xl font-bold text-center text-indigo-700 mb-3">
           What Students Say About Our Teachers
         </h2>
-        <p className="text-center xl:text-lg text-gray-600 mb-10 max-w-3xl xl:max-w-5xl mx-auto">
+        <p className="text-center xl:text-lg text-white mb-10 max-w-3xl xl:max-w-5xl mx-auto">
           Discover how our dedicated instructors are impacting student journeys
           through engaging lessons and mentorship. Here's what learners have to
           say.

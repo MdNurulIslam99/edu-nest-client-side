@@ -13,7 +13,7 @@ import SupportSessions from "../SupportSessions/SupportSessions";
 
 const Home = () => {
   return (
-    <div>
+    <div className="dark:text-white">
       {/* <Helmet>EduNest | Home</Helmet> */}
       <div className="mt-14 mb-10">
         <SwiperSlider></SwiperSlider>

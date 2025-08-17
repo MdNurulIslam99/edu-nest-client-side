@@ -59,7 +59,7 @@ const TeacherRequestForm = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 "
       >
         {/* Section 1: User Info */}
         <div className="space-y-4">
@@ -70,7 +70,7 @@ const TeacherRequestForm = () => {
               type="text"
               value={user.displayName}
               disabled
-              className="w-full px-4 py-2 border rounded bg-gray-100"
+              className="w-full px-4 py-2 border rounded bg-gray-100 text-black"
             />
           </div>
           <div>
@@ -79,7 +79,7 @@ const TeacherRequestForm = () => {
               type="email"
               value={user.email}
               disabled
-              className="w-full px-4 py-2 border rounded bg-gray-100"
+              className="w-full px-4 py-2 border rounded bg-gray-100 text-black"
             />
           </div>
           <div>
@@ -88,7 +88,7 @@ const TeacherRequestForm = () => {
               type="text"
               value={user.photoURL}
               disabled
-              className="w-full px-4 py-2 border rounded bg-gray-100"
+              className="w-full px-4 py-2 border rounded bg-gray-100 text-black"
             />
           </div>
         </div>
@@ -101,7 +101,7 @@ const TeacherRequestForm = () => {
             <select
               value={experience}
               onChange={(e) => setExperience(e.target.value)}
-              className="w-full px-4 py-2 border rounded"
+              className="w-full px-4 py-2 border text-black bg-white rounded"
               required
             >
               <option value="" disabled>
@@ -120,7 +120,7 @@ const TeacherRequestForm = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Senior JavaScript Developer"
-              className="w-full px-4 py-2 border rounded"
+              className="w-full px-4 bg-white text-black py-2 border rounded"
               required
             />
           </div>
@@ -130,7 +130,7 @@ const TeacherRequestForm = () => {
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-4 py-2 border rounded"
+              className="w-full text-black bg-white px-4 py-2 border rounded"
               required
             >
               <option value="" disabled>

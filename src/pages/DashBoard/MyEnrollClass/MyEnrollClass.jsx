@@ -5,6 +5,7 @@ import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import { Link } from "react-router"; //
 import { motion } from "framer-motion";
 import { FaBookOpen } from "react-icons/fa";
+import Loading from "../../shared/Footer/FooterPages/Loading";
 
 const MyEnrollClass = () => {
   const { user } = useContext(AuthContext);
@@ -19,14 +20,19 @@ const MyEnrollClass = () => {
     enabled: !!user?.email,
   });
 
-  if (isLoading) return <div className="text-center py-10">Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="text-center py-10">
+        <Loading></Loading>
+      </div>
+    );
 
   return (
     <div className="w-11/12 mx-auto p-4">
       {/*  TITLE SECTION */}
       <div className="text-center my-10">
         <h2 className="text-4xl font-bold text-primary">My Enrolled Classes</h2>
-        <p className="text-gray-600 xl:text-lg mt-2">
+        <p className="  xl:text-lg mt-2">
           All your enrolled learning journeys in one place.
         </p>
       </div>
@@ -59,7 +65,7 @@ const MyEnrollClass = () => {
             {/*  CARD BODY */}
             <div className="card-body">
               <h2 className="card-title text-xl">{singleClass.title}</h2>
-              <p className="text-gray-500 xl:text-lg">
+              <p className=" xl:text-lg">
                 Instructor: {singleClass.instructorName || "Unknown"}{" "}
                 {/*  FIXED FIELD */}
               </p>

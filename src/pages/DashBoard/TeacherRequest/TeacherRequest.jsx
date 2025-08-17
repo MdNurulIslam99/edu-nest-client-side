@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "../../shared/Footer/FooterPages/Loading";
 
 const TeacherRequest = () => {
   const axiosSecure = useAxiosSecure();
@@ -56,12 +57,14 @@ const TeacherRequest = () => {
       <h2 className="text-3xl font-bold text-indigo-700 text-center mb-4">
         Teacher Requests
       </h2>
-      <p className="text-center text-gray-600 mb-6">
+      <p className="text-center text-white mb-6">
         Review and manage all teacher applications submitted by users.
       </p>
 
       {isLoading ? (
-        <p className="text-center text-indigo-600 font-semibold">Loading...</p>
+        <p className="text-center text-indigo-600 font-semibold">
+          <Loading></Loading>
+        </p>
       ) : totalRequests === 0 ? (
         <p className="text-center text-gray-500 py-10">
           No teacher requests found.

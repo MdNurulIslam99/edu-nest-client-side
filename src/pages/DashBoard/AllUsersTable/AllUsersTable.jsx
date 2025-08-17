@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { FaUserShield } from "react-icons/fa";
 import Swal from "sweetalert2";
+import Loading from "../../shared/Footer/FooterPages/Loading";
 
 const USERS_PER_PAGE = 10;
 
@@ -23,7 +24,12 @@ const AllUsersTable = () => {
     },
   });
 
-  if (isLoading) return <p className="text-center py-10">Loading users...</p>;
+  if (isLoading)
+    return (
+      <p className="text-center py-10">
+        <Loading></Loading>
+      </p>
+    );
   if (isError)
     return (
       <p className="text-center text-red-500 py-10">Failed to load users.</p>
@@ -67,11 +73,11 @@ const AllUsersTable = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto px-4 py-10 mt-16 rounded-lg bg-gray-100">
+    <div className="w-11/12 mx-auto px-4 py-10 mt-16 rounded-lg bg-base-200">
       <h2 className="text-2xl font-bold text-center mb-6 text-indigo-600">
         All Registered Users
       </h2>
-      <p className="max-w-7xl mx-auto text-center text-gray-600 mb-6">
+      <p className="max-w-7xl mx-auto text-center text-white mb-6">
         This section displays a complete list of all registered users on the
         platform, including their essential details such as name, email, and
         role. Admins can manage user access, monitor activity, and update user

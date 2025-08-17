@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
+import Loading from "../../shared/Footer/FooterPages/Loading";
 
 const TeacherMyClass = () => {
   const axiosSecure = useAxiosSecure();
@@ -124,7 +125,7 @@ const TeacherMyClass = () => {
   if (isLoading) {
     return (
       <div className="text-center py-20 text-gray-500">
-        Loading your classes...
+        <Loading></Loading>
       </div>
     );
   }
@@ -134,7 +135,7 @@ const TeacherMyClass = () => {
       <h2 className="text-3xl font-bold text-center text-indigo-700 mb-2">
         My Classes
       </h2>
-      <p className="text-center xl:text-base text-gray-600 mt-5 mb-8">
+      <p className="text-center xl:text-base text-white mt-5 mb-8">
         Manage your courses—view, update, delete, or check status—all in one
         dashboard.
       </p>

@@ -53,7 +53,7 @@ const StudentTestimonials = () => {
               <div className="text-4xl text-indigo-700 mb-4 mx-auto">
                 {cat.icon}
               </div>
-              <h3 className="font-bold text-lg mb-2">{cat.title}</h3>
+              <h3 className="font-bold text-black text-lg mb-2">{cat.title}</h3>
               <p className="text-gray-600 text-sm">{cat.desc}</p>
             </div>
           ))}

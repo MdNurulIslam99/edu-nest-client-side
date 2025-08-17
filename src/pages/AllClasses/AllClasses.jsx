@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaUserGraduate, FaMoneyBillWave, FaBookOpen } from "react-icons/fa";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useNavigate } from "react-router";
+import Loading from "../shared/Footer/FooterPages/Loading";
 
 const AllClasses = () => {
   const axiosSecure = useAxiosSecure();
@@ -51,7 +52,7 @@ const AllClasses = () => {
   if (isLoading) {
     return (
       <div className="text-center mt-20 text-lg font-semibold text-gray-500">
-        Loading courses...
+        <Loading></Loading>
       </div>
     );
   }
@@ -69,7 +70,7 @@ const AllClasses = () => {
       {/* Title Section */}
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-indigo-700">EduNest Courses</h2>
-        <p className="mt-3 text-gray-600 max-w-4xl xl:max-w-6xl mx-auto">
+        <p className="mt-3 text-white max-w-4xl xl:max-w-5xl mx-auto">
           Welcome to EduNest - Smart Education System. Explore and enroll in
           interactive, industry-relevant courses taught by professional
           educators. Start learning today!
@@ -77,16 +78,18 @@ const AllClasses = () => {
       </div>
 
       {/*  Sorting Dropdown */}
-      <div className="flex justify-start mb-6">
+      <div className="flex justify-start  mb-6">
         <select
-          className="border border-gray-300 rounded-md px-4 py-2 text-gray-700 focus:ring focus:ring-indigo-300"
+          className="border border-gray-300 text-black bg-white rounded-md px-4 py-2  focus:ring focus:ring-indigo-300"
           value={sortOrder}
           onChange={(e) => {
             setSortOrder(e.target.value);
             setCurrentPage(1); // reset to first page after sorting
           }}
         >
-          <option value="">Sort by</option>
+          <option className="" value="">
+            Sort by
+          </option>
           <option value="asc">Price: Low to High</option>
           <option value="desc">Price: High to Low</option>
         </select>

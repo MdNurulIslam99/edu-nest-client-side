@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Loading from "../../shared/Footer/FooterPages/Loading";
 
 const AdminAllClasses = () => {
   const axiosSecure = useAxiosSecure();
@@ -42,12 +43,12 @@ const AdminAllClasses = () => {
   );
 
   return (
-    <div className="w-11/12 mt-16 rounded-lg shadow-2xl bg-gray-100 mx-auto px-4 py-10">
+    <div className="w-11/12 mt-16 rounded-lg shadow-2xl bg-base-200 mx-auto px-4 py-10">
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold text-indigo-700">
           All Classes Overview
         </h2>
-        <p className="text-gray-600 mt-2">
+        <p className="text-white mt-2">
           Admin can review, approve, or reject all submitted classes from
           instructors in EduNest.
         </p>
@@ -55,7 +56,7 @@ const AdminAllClasses = () => {
 
       {isLoading ? (
         <div className="text-center text-lg font-medium mt-10">
-          Loading classes...
+          <Loading></Loading>
         </div>
       ) : isError ? (
         <div className="text-center text-lg text-red-500 mt-10">

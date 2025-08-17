@@ -7,7 +7,7 @@ const HelpCenter = () => {
       {/* Page Title */}
       <div className="text-center  mb-10">
         <h2 className="text-4xl font-bold text-indigo-700">Help Center</h2>
-        <p className="mt-3 text-gray-600 max-w-4xl mx-auto">
+        <p className="mt-3 text-white  max-w-4xl mx-auto">
           Find answers to common questions about EduNest. If you don’t see your
           question here, feel free to contact our support team.
         </p>

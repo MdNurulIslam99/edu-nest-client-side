@@ -61,8 +61,8 @@ const AllClassDetails = () => {
     <div className="max-w-7xl mx-auto mt-20 mb-10 px-4 py-10">
       {/* Page Header */}
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-indigo-700">Class Details</h1>
-        <p className="text-gray-600 max-w-2xl mx-auto mt-2">
+        <h1 className="text-4xl font-bold text-indigo-600">Class Details</h1>
+        <p className="text-white max-w-4xl mx-auto mt-2">
           Dive into one of EduNest’s expertly crafted classes. Learn new skills
           from certified professionals, track your progress, and level up with
           Smart Education!

@@ -8,7 +8,7 @@ const LogoSection = () => {
         alt="Website Logo"
         className="h-10 w-10 object-contain"
       />
-      <h1 className="text-xl font-bold text-gray-800">EduNest</h1>
+      <h1 className="text-xl font-bold ">EduNest</h1>
     </div>
   );
 };

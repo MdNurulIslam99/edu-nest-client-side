@@ -66,7 +66,7 @@ const AddClass = () => {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 text-black">
         {/* Course Info */}
         <div>
           <h3 className="text-xl font-semibold mb-2">Course Information</h3>

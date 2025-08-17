@@ -6,6 +6,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 import { FaUserGraduate, FaEnvelope, FaUsers } from "react-icons/fa";
 import "swiper/css";
 import "swiper/css/pagination";
+import Loading from "../shared/Footer/FooterPages/Loading";
 
 const PopularClasses = () => {
   const axiosSecure = useAxiosSecure();
@@ -23,7 +24,11 @@ const PopularClasses = () => {
   });
 
   if (isLoading)
-    return <p className="text-center">Loading popular classes...</p>;
+    return (
+      <p className="text-center">
+        <Loading></Loading>
+      </p>
+    );
   if (isError)
     return (
       <p className="text-center text-red-500">Failed to load popular classes</p>
@@ -37,7 +42,7 @@ const PopularClasses = () => {
           Most Popular Classes
         </h2>
 
-        <p className="text-center max-w-4xl xl:max-w-5xl xl:text-xl mx-auto text-gray-600 mb-10">
+        <p className="text-center max-w-4xl xl:max-w-5xl xl:text-xl mx-auto dark:text-white  mb-10">
           Discover our most sought-after classes, ranked by the highest student
           enrollments. The most enrolled course appears first, followed by the
           rest in order.

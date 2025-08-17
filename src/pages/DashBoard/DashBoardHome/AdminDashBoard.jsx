@@ -13,6 +13,7 @@ import {
   FaUserCheck,
 } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Loading from "../../shared/Footer/FooterPages/Loading";
 
 const AdminDashboardStats = () => {
   const axiosSecure = useAxiosSecure();
@@ -30,7 +31,11 @@ const AdminDashboardStats = () => {
   });
 
   if (isLoading)
-    return <p className="text-center py-10">Loading dashboard stats...</p>;
+    return (
+      <p className="text-center py-10">
+        <Loading></Loading>
+      </p>
+    );
   if (isError || !stats)
     return (
       <p className="text-center text-red-600 py-10">
@@ -45,7 +50,7 @@ const AdminDashboardStats = () => {
         <h1 className="text-4xl font-extrabold text-indigo-700 mb-3">
           Admin Dashboard Overview
         </h1>
-        <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+        <p className="text-white max-w-3xl mx-auto text-lg">
           Monitor key metrics across your platform including users, teachers,
           classes, assignments, and more. Stay informed about platform activity
           at a glance.
@@ -57,7 +62,7 @@ const AdminDashboardStats = () => {
         {/* Total Users */}
         <div className="card bg-white shadow-lg rounded-xl border border-indigo-100 p-6 flex flex-col items-center text-center hover:shadow-2xl transition">
           <FaUsers className="text-indigo-600 text-5xl mb-3" />
-          <h2 className="text-3xl font-bold">{stats.totalUsers}</h2>
+          <h2 className="text-3xl text-black font-bold">{stats.totalUsers}</h2>
           <p className="text-indigo-700 font-semibold mt-1">Total Users</p>
           <p className="text-gray-500 mt-2 text-sm">
             All registered users on the platform.
@@ -67,7 +72,9 @@ const AdminDashboardStats = () => {
         {/* Total Teachers */}
         <div className="card bg-white shadow-lg rounded-xl border border-green-100 p-6 flex flex-col items-center text-center hover:shadow-2xl transition">
           <FaChalkboardTeacher className="text-green-600 text-5xl mb-3" />
-          <h2 className="text-3xl font-bold">{stats.totalTeachers}</h2>
+          <h2 className="text-3xl text-black font-bold">
+            {stats.totalTeachers}
+          </h2>
           <p className="text-green-700 font-semibold mt-1">Total Teachers</p>
           <p className="text-gray-500 mt-2 text-sm">
             Teachers actively instructing classes.
@@ -77,7 +84,9 @@ const AdminDashboardStats = () => {
         {/* Total Students */}
         <div className="card bg-white shadow-lg rounded-xl border border-pink-100 p-6 flex flex-col items-center text-center hover:shadow-2xl transition">
           <FaUserGraduate className="text-pink-600 text-5xl mb-3" />
-          <h2 className="text-3xl font-bold">{stats.totalStudents}</h2>
+          <h2 className="text-3xl text-black font-bold">
+            {stats.totalStudents}
+          </h2>
           <p className="text-pink-700 font-semibold mt-1">Total Students</p>
           <p className="text-gray-500 mt-2 text-sm">
             Registered students actively learning.
@@ -87,7 +96,9 @@ const AdminDashboardStats = () => {
         {/* Pending Teacher Requests */}
         <div className="card bg-white shadow-lg rounded-xl border border-yellow-100 p-6 flex flex-col items-center text-center hover:shadow-2xl transition">
           <FaUserCheck className="text-yellow-600 text-5xl mb-3" />
-          <h2 className="text-3xl font-bold">{stats.pendingTeacherRequests}</h2>
+          <h2 className="text-3xl text-black font-bold">
+            {stats.pendingTeacherRequests}
+          </h2>
           <p className="text-yellow-700 font-semibold mt-1">
             Pending Teacher Requests
           </p>
@@ -99,7 +110,9 @@ const AdminDashboardStats = () => {
         {/* Total Classes */}
         <div className="card bg-white shadow-lg rounded-xl border border-blue-100 p-6 flex flex-col items-center text-center hover:shadow-2xl transition">
           <FaBook className="text-blue-600 text-5xl mb-3" />
-          <h2 className="text-3xl font-bold">{stats.totalClasses}</h2>
+          <h2 className="text-3xl text-black font-bold">
+            {stats.totalClasses}
+          </h2>
           <p className="text-blue-700 font-semibold mt-1">Total Classes</p>
           <p className="text-gray-500 mt-2 text-sm">
             All classes created by teachers.
@@ -109,7 +122,9 @@ const AdminDashboardStats = () => {
         {/* Approved Classes */}
         <div className="card bg-white shadow-lg rounded-xl border border-teal-100 p-6 flex flex-col items-center text-center hover:shadow-2xl transition">
           <FaCheckCircle className="text-teal-600 text-5xl mb-3" />
-          <h2 className="text-3xl font-bold">{stats.approvedClasses}</h2>
+          <h2 className="text-3xl text-black font-bold">
+            {stats.approvedClasses}
+          </h2>
           <p className="text-teal-700 font-semibold mt-1">Approved Classes</p>
           <p className="text-gray-500 mt-2 text-sm">
             Classes approved and published.
@@ -119,7 +134,9 @@ const AdminDashboardStats = () => {
         {/* Total Assignments */}
         <div className="card bg-white shadow-lg rounded-xl border border-purple-100 p-6 flex flex-col items-center text-center hover:shadow-2xl transition">
           <FaClipboardList className="text-purple-600 text-5xl mb-3" />
-          <h2 className="text-3xl font-bold">{stats.totalAssignments}</h2>
+          <h2 className="text-3xl text-black font-bold">
+            {stats.totalAssignments}
+          </h2>
           <p className="text-purple-700 font-semibold mt-1">
             Total Assignments
           </p>
@@ -131,7 +148,9 @@ const AdminDashboardStats = () => {
         {/* Total Submissions */}
         <div className="card bg-white shadow-lg rounded-xl border border-red-100 p-6 flex flex-col items-center text-center hover:shadow-2xl transition">
           <FaClock className="text-red-600 text-5xl mb-3" />
-          <h2 className="text-3xl font-bold">{stats.totalSubmissions}</h2>
+          <h2 className="text-3xl text-black font-bold">
+            {stats.totalSubmissions}
+          </h2>
           <p className="text-red-700 font-semibold mt-1">Total Submissions</p>
           <p className="text-gray-500 mt-2 text-sm">
             Submitted assignments by students.
@@ -141,7 +160,9 @@ const AdminDashboardStats = () => {
         {/* Total Feedbacks */}
         <div className="card bg-white shadow-lg rounded-xl border border-pink-300 p-6 flex flex-col items-center text-center hover:shadow-2xl transition">
           <FaComments className="text-pink-600 text-5xl mb-3" />
-          <h2 className="text-3xl font-bold">{stats.totalFeedbacks}</h2>
+          <h2 className="text-3xl text-black font-bold">
+            {stats.totalFeedbacks}
+          </h2>
           <p className="text-pink-700 font-semibold mt-1">Total Feedbacks</p>
           <p className="text-gray-500 mt-2 text-sm">
             Student feedback and reviews.

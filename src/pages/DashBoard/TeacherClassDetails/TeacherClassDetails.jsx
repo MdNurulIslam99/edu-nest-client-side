@@ -99,7 +99,7 @@ const TeacherClassDetails = () => {
         <h2 className="text-3xl  font-bold text-center text-primary mb-4">
           Class Progress Overview
         </h2>
-        <p className="text-gray-600 max-w-4xl text-center mx-auto mt-2">
+        <p className="text-white max-w-4xl text-center mx-auto mt-2">
           Quickly track your class's overall performance with insights into
           enrollments, assignments, and submissions to measure student
           engagement and progress.
@@ -109,19 +109,25 @@ const TeacherClassDetails = () => {
       {/* Class Progress */}
       <div className="grid md:grid-cols-3 gap-6 mt-14">
         <div className="card bg-blue-100 p-6 shadow">
-          <h3 className="text-lg font-bold mb-2">Total Enrollment</h3>
+          <h3 className="text-lg text-black font-bold mb-2">
+            Total Enrollment
+          </h3>
           <p className="text-3xl font-semibold text-blue-700">
             {classInfo?.totalEnrollment || 0}
           </p>
         </div>
         <div className="card bg-green-100 p-6 shadow">
-          <h3 className="text-lg font-bold mb-2">Total Assignments</h3>
+          <h3 className="text-lg text-black font-bold mb-2">
+            Total Assignments
+          </h3>
           <p className="text-3xl font-semibold text-green-700">
             {assignments.length}
           </p>
         </div>
         <div className="card bg-purple-100 p-6 shadow">
-          <h3 className="text-lg font-bold mb-2">Total Submissions</h3>
+          <h3 className="text-lg text-black font-bold mb-2">
+            Total Submissions
+          </h3>
           <p className="text-3xl font-semibold text-purple-700">
             {totalSubmissions}
           </p>
@@ -148,9 +154,7 @@ const TeacherClassDetails = () => {
             <li key={a._id} className="p-4 bg-base-100 shadow rounded">
               <h4 className="font-semibold">{a.title}</h4>
               <p className="text-sm">{a.description}</p>
-              <p className="text-xs text-gray-500 mb-1">
-                Deadline: {a.deadline}
-              </p>
+              <p className="text-xs text-white mb-1">Deadline: {a.deadline}</p>
               <p className="text-sm text-blue-600 font-medium">
                 Submissions: {submissionsMap[a._id] || 0}
               </p>

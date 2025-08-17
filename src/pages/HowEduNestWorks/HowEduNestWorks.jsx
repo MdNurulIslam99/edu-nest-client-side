@@ -16,7 +16,9 @@ const HowEduNestWorks = () => {
           {/* Step 1 */}
           <div className="bg-white shadow-md rounded-xl p-6 border hover:shadow-lg transition">
             <FaUserGraduate className="text-4xl text-indigo-500 mx-auto mb-4" />
-            <h4 className="font-bold text-lg mb-2">1. Sign Up</h4>
+            <h4 className="font-bold text-indigo-500 text-lg mb-2">
+              1. Sign Up
+            </h4>
             <p className="text-gray-600 text-sm">
               Create a free student account and explore a variety of courses.
             </p>
@@ -25,7 +27,9 @@ const HowEduNestWorks = () => {
           {/* Step 2 */}
           <div className="bg-white shadow-md rounded-xl p-6 border hover:shadow-lg transition">
             <FaChalkboardTeacher className="text-4xl text-green-500 mx-auto mb-4" />
-            <h4 className="font-bold text-lg mb-2">2. Enroll in Classes</h4>
+            <h4 className="font-bold text-indigo-500 text-lg mb-2">
+              2. Enroll in Classes
+            </h4>
             <p className="text-gray-600 text-sm">
               Choose your desired course and start learning from top educators.
             </p>
@@ -34,7 +38,9 @@ const HowEduNestWorks = () => {
           {/* Step 3 */}
           <div className="bg-white shadow-md rounded-xl p-6 border hover:shadow-lg transition">
             <FaCreditCard className="text-4xl text-pink-500 mx-auto mb-4" />
-            <h4 className="font-bold text-lg mb-2">3. Get Certified</h4>
+            <h4 className="font-bold text-indigo-500 text-lg mb-2">
+              3. Get Certified
+            </h4>
             <p className="text-gray-600 text-sm">
               Complete classes, submit assignments, and earn certificates.
             </p>

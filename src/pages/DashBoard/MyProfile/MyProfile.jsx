@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import { useQuery } from "@tanstack/react-query"; // UPDATED
+import Loading from "../../shared/Footer/FooterPages/Loading";
 // import { Helmet } from "react-helmet-async";
 
 const MyProfile = () => {
@@ -22,7 +23,7 @@ const MyProfile = () => {
   if (isLoading) {
     return (
       <div className="text-center py-20 text-gray-500">
-        Loading your profile...
+        <Loading></Loading>
       </div>
     );
   }
@@ -37,7 +38,7 @@ const MyProfile = () => {
       {/* <Helmet>EduNest | MyProfile</Helmet> */}
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-indigo-700">My Profile</h2>
-        <p className="text-gray-500 mt-2">View your personal information</p>
+        <p className="text-white mt-2">View your personal information</p>
       </div>
 
       <div className="bg-white shadow-xl rounded-2xl p-6 md:p-10 flex flex-col md:flex-row gap-6 items-center justify-center">
