@@ -32,8 +32,8 @@ const NavBar = () => {
           to="/"
           className={({ isActive }) =>
             isActive
-              ? "text-neutral-950 text-lg font-bold"
-              : "text-white  text-lg font-bold"
+              ? "text-neutral-950 text-base md:text-lg font-bold"
+              : "text-white text-base md:text-lg font-bold"
           }
         >
           Home
@@ -44,8 +44,8 @@ const NavBar = () => {
           to="/allClasses"
           className={({ isActive }) =>
             isActive
-              ? "text-neutral-950  text-lg font-bold"
-              : "text-white text-lg font-bold"
+              ? "text-neutral-950  text-base md:text-lg font-bold"
+              : "text-white text-base md:text-lg font-bold"
           }
         >
           All Classes
@@ -56,8 +56,8 @@ const NavBar = () => {
           to="/teacherRequestForm"
           className={({ isActive }) =>
             isActive
-              ? "text-neutral-950 text-lg font-bold"
-              : "text-white text-lg font-bold"
+              ? "text-neutral-950 text-base md:text-lg font-bold"
+              : "text-white text-base md:text-lg font-bold"
           }
         >
           Teach on EduNest
@@ -68,8 +68,8 @@ const NavBar = () => {
 
   return (
     <div className="fixed top-0 left-0 w-full z-50 bg-[#0682a1] shadow-md">
-      <div className="max-w-screen-2xl mx-auto px-4 xl:px-8 flex items-center justify-between h-16">
-        {/* 🔄 CHANGED: Flex container for logo and mobile menu */}
+      <div className="w-11/12 mx-auto px-5 flex items-center justify-between h-16">
+        {/*  Flex container for logo and mobile menu */}
         <div className="flex lg:flex-row items-center gap-4">
           <div className="dropdown lg:hidden">
             <div
@@ -100,13 +100,13 @@ const NavBar = () => {
             </ul>
           </div>
 
-          <NavLink className="flex items-center gap-2" to="/">
+          <NavLink className="flex items-center gap-1 md:gap-2" to="/">
             <img
-              className="h-10 w-10 rounded-full"
+              className="h-5 md:h-10 w-5 md:w-10 rounded-full"
               src="https://i.ibb.co/Jw6Z9Xgj/logo-Edu-Nest.png"
               alt="logo"
             />
-            <h1 className="text-lg sm:text-xl font-bold text-white whitespace-nowrap">
+            <h1 className="text-lg md:text-lg font-bold text-white whitespace-nowrap">
               Edu<span className="text-emerald-200">Nest</span>
             </h1>
           </NavLink>
@@ -119,7 +119,7 @@ const NavBar = () => {
           </ul>
         </div>
 
-        {/* 🔄 CHANGED: User Dropdown/Profile */}
+        {/*  User Dropdown/Profile */}
         <div className="flex items-center gap-3">
           {user ? (
             <div className="dropdown dropdown-end">
@@ -165,16 +165,16 @@ const NavBar = () => {
               </ul>
             </div>
           ) : (
-            <div className="flex gap-2">
+            <div className="flex gap-1 md:gap-2 relative left-5 md:left-0">
               <NavLink
                 to="/signin"
-                className="btn bg-emerald-600 hover:bg-emerald-700 text-white text-sm px-4"
+                className="btn bg-emerald-600 hover:bg-emerald-700 text-white text-sm p-1 md:px-4"
               >
                 Sign In
               </NavLink>
               <NavLink
                 to="/signup"
-                className="btn bg-emerald-600 hover:bg-emerald-700 text-white text-sm px-4"
+                className="btn bg-emerald-600 hover:bg-emerald-700 text-white text-sm px-1 md:px-4"
               >
                 Sign Up
               </NavLink>

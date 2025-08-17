@@ -8,12 +8,12 @@ import { Link } from "react-router";
 
 const SwiperSlider = () => {
   return (
-    <div className="relative w-full h-[60vh] md:h-[70vh]">
-      <div className="swiper-Link-prev-custom absolute top-1/2 left-4 z-10 transform -translate-y-1/2 text-white bg-black/50 p-3 rounded-full cursor-pointer">
-        <FaChevronLeft className="text-xl" />
+    <div className="relative w-11/12 mx-auto px-5 py-10 h-[60vh] md:h-[70vh]">
+      <div className="swiper-Link-prev-custom absolute top-1/2 left-5 md:left-6 z-10 transform -translate-y-1/2 text-white bg-black/50 p-2 md:p-3 rounded-full cursor-pointer">
+        <FaChevronLeft className="text-lg md:text-xl" />
       </div>
-      <div className="swiper-Link-next-custom absolute top-1/2 right-4 z-10 transform -translate-y-1/2 text-white bg-black/50 p-3 rounded-full cursor-pointer">
-        <FaChevronRight className="text-xl" />
+      <div className="swiper-Link-next-custom absolute top-1/2 right-5 md:right-6 z-10 transform -translate-y-1/2 text-white bg-black/50 p-2 md:p-3 rounded-full cursor-pointer">
+        <FaChevronRight className="text-lg md:text-xl" />
       </div>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
@@ -26,7 +26,7 @@ const SwiperSlider = () => {
         loop={true}
         className="w-full h-full"
       >
-        {/* 🔄 CHANGED: 7 Unique Slides for EduNest */}
+        {/* 7 Unique Slides for EduNest */}
 
         {/* Slide 1 */}
         <SwiperSlide>
@@ -102,7 +102,7 @@ const SwiperSlider = () => {
   );
 };
 
-// 🔄 CHANGED: Reusable SlideContent component
+//  Reusable SlideContent component
 const SlideContent = ({ bg, title, description, button }) => (
   <div
     className="w-full h-full bg-cover bg-center rounded-lg text-white"

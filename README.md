@@ -163,7 +163,7 @@ tailwindcss + daisyui
 
 🔴 Live Site: https://edunest-3378e.web.app/
 
-🟡 Client Repository: https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-MdNurulIslam99
+🟡 Client Repository: https://github.com/MdNurulIslam99/edu-nest-client-side
 
 🔵 Server Repository: https://github.com/Programming-Hero-Web-Course4/b11a12-server-side-MdNurulIslam99
 
